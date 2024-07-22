@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss  xmlns:atom="http://www.w3.org/2005/Atom" 
+      xmlns:media="http://search.yahoo.com/mrss/" 
+      xmlns:content="http://purl.org/rss/1.0/modules/content/" 
+      xmlns:dc="http://purl.org/dc/elements/1.1/" 
+      version="2.0">
+<channel>
+<title>nbdev-cards</title>
+<link>https://jaewilson07.github.io/nbdev_start/blog/index.html</link>
+<atom:link href="https://jaewilson07.github.io/nbdev_start/blog/index.xml" rel="self" type="application/rss+xml"/>
+<description></description>
+<generator>quarto-1.2.269</generator>
+<lastBuildDate>Wed, 01 Jun 2022 06:00:00 GMT</lastBuildDate>
+<item>
+  <title>This is a dummy blog posts</title>
+  <link>https://jaewilson07.github.io/nbdev_start/blog/posts/Post1.html</link>
+  <description><![CDATA[ 
+
+
+
+<section id="heading-1" class="level1">
+<h1>Heading 1</h1>
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam suscipit est nec dui eleifend, at dictum elit ullamcorper. Aliquam feugiat dictum bibendum. Praesent fermentum laoreet quam, cursus volutpat odio dapibus in. Fusce luctus porttitor vehicula. Donec ac tortor nisi. Donec at lectus tortor. Morbi tempor, nibh non euismod viverra, metus arcu aliquet elit, sed fringilla urna leo vel purus.</p>
+<section id="merriweather" class="level2">
+<h2 class="anchored" data-anchor-id="merriweather">Merriweather</h2>
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam suscipit est nec dui eleifend, at dictum elit ullamcorper. <strong>Aliquam feugiat dictum bibendum.</strong> Praesent fermentum laoreet quam, cursus volutpat odio dapibus in. <a href="https://github.com/twbs/bootstrap-sass/blob/master/assets/stylesheets/bootstrap/_variables.scss">Fusce luctus</a> porttitor vehicula. Donec ac tortor nisi. Donec at lectus tortor. Morbi tempor, nibh non euismod viverra, metus arcu aliquet elit, sed fringilla urna leo vel purus.</p>
+<section id="code" class="level3">
+<h3 class="anchored" data-anchor-id="code">3 - Code</h3>
+<p>This is <code>inline</code> code plus a small code chunk.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<p>
+</p><pre class="mermaid mermaid-js" data-tooltip-selector="#mermaid-tooltip-1">flowchart LR
+  A[Hard edge] --&gt; B(Round edge)
+  B --&gt; C{Decision}
+  C --&gt; D[Result one]
+  C --&gt; E[Result two]
+</pre>
+<div id="mermaid-tooltip-1" class="mermaidTooltip">
+
+</div>
+<p></p>
+</div>
+</div>
+</div>
+
+
+</section>
+</section>
+</section>
+
+ ]]></description>
+  <category>123</category>
+  <category>Second Tag</category>
+  <guid>https://jaewilson07.github.io/nbdev_start/blog/posts/Post1.html</guid>
+  <pubDate>Wed, 01 Jun 2022 06:00:00 GMT</pubDate>
+</item>
+<item>
+  <title></title>
+  <link>https://jaewilson07.github.io/nbdev_start/blog/posts/snaketest.html</link>
+  <description><![CDATA[ 
+
+
+
+<section id="why-use-snakemd" class="level1">
+<h1>Why Use SnakeMD?</h1>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<p>
+</p><pre class="mermaid mermaid-js" data-tooltip-selector="#mermaid-tooltip-1">flowchart LR
+  A[Hard edge] --&gt; B(Round edge)
+  B --&gt; C{Decision}
+  C --&gt; D[Result one]
+  C --&gt; E[Result two]
+
+</pre>
+<div id="mermaid-tooltip-1" class="mermaidTooltip">
+
+</div>
+<p></p>
+</div>
+</div>
+</div>
+
+
+</section>
+
+ ]]></description>
+  <guid>https://jaewilson07.github.io/nbdev_start/blog/posts/snaketest.html</guid>
+  <pubDate>Tue, 29 Nov 2022 16:40:53 GMT</pubDate>
+</item>
+<item>
+  <title></title>
+  <link>https://jaewilson07.github.io/nbdev_start/blog/posts/snaketest2.html</link>
+  <description><![CDATA[ 
+
+
+
+<section id="why-use-snakemd" class="level1">
+<h1>Why Use SnakeMD?</h1>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<p>
+</p><pre class="mermaid mermaid-js" data-tooltip-selector="#mermaid-tooltip-1">flowchart LR
+  A[Hard edge] --&gt; B(Round edge)
+  B --&gt; C{Decision}
+  C --&gt; D[Result one]
+  C --&gt; E[Result two]
+
+</pre>
+<div id="mermaid-tooltip-1" class="mermaidTooltip">
+
+</div>
+<p></p>
+</div>
+</div>
+</div>
+
+
+</section>
+
+ ]]></description>
+  <guid>https://jaewilson07.github.io/nbdev_start/blog/posts/snaketest2.html</guid>
+  <pubDate>Tue, 29 Nov 2022 16:40:53 GMT</pubDate>
+</item>
+</channel>
+</rss>
