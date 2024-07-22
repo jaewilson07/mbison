@@ -2,11 +2,10 @@ website:
   sidebar:
     contents:
       - index.ipynb
-      - main.ipynb
-      - utils.ipynb
       - section: client
         contents:
           - client/core.ipynb
+          - client/utils.ipynb
       - section: feature
         contents:
           - feature/codeengine.ipynb

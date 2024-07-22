@@ -4,60 +4,64 @@
 __all__ = ['get_datasets', 'get_pdp_policies', 'get_pdp_policy', 'create_pdp_policy', 'update_pdp_policy', 'delete_pdp_policy',
            'DomoDatasetPolicy', 'DomoDataset', 'DomoDatasets']
 
-# %% ../../nbs/feature/datasets.ipynb 5
-def get_datasets(auth : dmda.DomoAuth, debug_api : bool = False, return_raw: bool = False):
-    endpoint = '/api/data/ui/v3/datasources/search'
+# %% ../../nbs/feature/datasets.ipynb 6
+def get_datasets(
+    auth: dmda.DomoAuth, debug_api: bool = False, return_raw: bool = False
+):
+    endpoint = "/api/data/ui/v3/datasources/search"
 
     payload = {
-            "entities": ["DATASET"],
-            "filters": [],
-            "combineResults":"true",
-            "query":"*",
-            "count":1000,
-            "offset":0,
-            "sort":{"isRelevance":"false",
-                    "fieldSorts":[{"field":"create_date",
-                                    "sortOrder":"DESC"}]}}
-    
+        "entities": ["DATASET"],
+        "filters": [],
+        "combineResults": "true",
+        "query": "*",
+        "count": 1000,
+        "offset": 0,
+        "sort": {
+            "isRelevance": "false",
+            "fieldSorts": [{"field": "create_date", "sortOrder": "DESC"}],
+        },
+    }
+
     res = dmda.domo_api_request(
-        auth = auth,
-        endpoint= endpoint,
-        request_type='POST',
-        debug_api= debug_api,
-        body = payload
-        
+        auth=auth,
+        endpoint=endpoint,
+        request_type="POST",
+        debug_api=debug_api,
+        body=payload,
     )
 
     if return_raw:
         return res
-    
-    res.response = res.response['dataSources']
-    
+
+    res.response = res.response["dataSources"]
+
     return res
 
 # %% ../../nbs/feature/datasets.ipynb 8
-def get_pdp_policies(auth : dmda.DomoAuth, datasetId):
-        endpoint = f'/api/query/v1/data-control/{datasetId}/filter-groups'
-        
-        params = {"options": "load_associations,load_filters,include_open_policy"}
+def get_pdp_policies(auth: dmda.DomoAuth, datasetId):
+    endpoint = f"/api/query/v1/data-control/{datasetId}/filter-groups"
 
-        response = dmda.domo_api_request(endpoint=endpoint,
-                                    auth = auth, request_type= 'GET',
-                                    params=params
-                                    ) 
-        
-        return response
+    params = {"options": "load_associations,load_filters,include_open_policy"}
+
+    response = dmda.domo_api_request(
+        endpoint=endpoint, auth=auth, request_type="GET", params=params
+    )
+
+    return response
+
 
 def get_pdp_policy(auth: dmda.DomoAuth, datasetId, policy_id):
-        endpoint = f'/api/query/v1/data-control/{datasetId}/filter-groups/{policy_id}'
+    endpoint = f"/api/query/v1/data-control/{datasetId}/filter-groups/{policy_id}"
 
-        res = dmda.domo_api_request(
-                auth = auth,
-                method = 'GET',
-                endpoint = endpoint,
-                params = {'options':'load_associations,load_filters,include_open_policy'})
-        
-        return res
+    res = dmda.domo_api_request(
+        auth=auth,
+        method="GET",
+        endpoint=endpoint,
+        params={"options": "load_associations,load_filters,include_open_policy"},
+    )
+
+    return res
 
 # %% ../../nbs/feature/datasets.ipynb 10
 def create_pdp_policy(auth: dmda.DomoAuth, datasetId: str, pdp_object: dict):
@@ -125,7 +129,7 @@ class DomoDataset:
 
         return self.domo_policies
 
-# %% ../../nbs/feature/datasets.ipynb 14
+# %% ../../nbs/feature/datasets.ipynb 13
 @dataclass
 class DomoDatasets:
     auth: dmda.DomoAuth
@@ -133,18 +137,17 @@ class DomoDatasets:
 
     domo_datasets: List[DomoDataset] = field(default_factory=lambda: [])
 
-    def get_datasets(self, debug_api : bool = False, return_raw: bool = False):
+    def get_datasets(self, debug_api: bool = False, return_raw: bool = False):
 
-        res = get_datasets(self.auth, debug_api = debug_api)
+        res = get_datasets(self.auth, debug_api=debug_api)
 
-        if return_raw: 
+        if return_raw:
             return res
-        
+
         self.raw_datasets = res.response
 
         self.domo_datasets = [
-            DomoDataset._from_json(obj=obj, 
-                                   auth=self.auth) for obj in self.raw_datasets
+            DomoDataset._from_json(obj=obj, auth=self.auth) for obj in self.raw_datasets
         ]
 
         return self.domo_datasets
