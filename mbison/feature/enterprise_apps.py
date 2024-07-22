@@ -15,7 +15,7 @@ import mbison.client.core as dmda
 import mbison.feature.users as dmdu
 import mbison.utils as dmut
 
-# %% ../../nbs/feature/enterprise_apps.ipynb 3
+# %% ../../nbs/feature/enterprise_apps.ipynb 4
 class App_API_Exception(dmda.API_Exception):
     def __init__(self, res, message= None):
         super().__init__(res = res,message = message)
@@ -33,7 +33,7 @@ def get_app_by_id(auth: dmda.DomoAuth, design_id: str, debug_api: bool = False):
 
     return res
 
-# %% ../../nbs/feature/enterprise_apps.ipynb 5
+# %% ../../nbs/feature/enterprise_apps.ipynb 6
 def get_app_versions(auth: dmda.DomoAuth, design_id, debug_api: bool = False):
 
     endpoint = f"/domoapps/designs/{design_id}/versions"
@@ -42,7 +42,7 @@ def get_app_versions(auth: dmda.DomoAuth, design_id, debug_api: bool = False):
         endpoint=endpoint, auth=auth, request_type="get", debug_api=debug_api
     )
 
-# %% ../../nbs/feature/enterprise_apps.ipynb 7
+# %% ../../nbs/feature/enterprise_apps.ipynb 8
 def get_app_source_by_version(
     auth: dmda.DomoAuth,
     download_path,
@@ -68,7 +68,7 @@ def get_app_source_by_version(
 
     return res
 
-# %% ../../nbs/feature/enterprise_apps.ipynb 9
+# %% ../../nbs/feature/enterprise_apps.ipynb 10
 @dataclass
 class DomoEnterpriseApp:
     auth: dmda.DomoAuth = field(repr=False)
@@ -153,7 +153,7 @@ class DomoEnterpriseApp:
         self.versions = res.response
         return self.versions
 
-# %% ../../nbs/feature/enterprise_apps.ipynb 12
+# %% ../../nbs/feature/enterprise_apps.ipynb 13
 def get_all_apps(auth: dmda.DomoAuth, debug_api: bool = False):
 
     endpoint = "/api/apps/v1/designs"
@@ -178,7 +178,7 @@ def get_all_apps(auth: dmda.DomoAuth, debug_api: bool = False):
 
     return res
 
-# %% ../../nbs/feature/enterprise_apps.ipynb 13
+# %% ../../nbs/feature/enterprise_apps.ipynb 14
 @dataclass
 class DomoEnterpriseApps:
     auth : dmda.DomoAuth = field(repr = False)

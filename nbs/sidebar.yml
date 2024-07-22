@@ -1,0 +1,18 @@
+website:
+  sidebar:
+    contents:
+      - index.ipynb
+      - main.ipynb
+      - utils.ipynb
+      - section: client
+        contents:
+          - client/core.ipynb
+      - section: feature
+        contents:
+          - feature/codeengine.ipynb
+          - feature/datasets.ipynb
+          - feature/enterprise_apps.ipynb
+          - feature/users.ipynb
+      - section: implementation
+        contents:
+          - implementation/monitoring.ipynb
