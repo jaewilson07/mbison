@@ -3,83 +3,84 @@
 # %% auto 0
 __all__ = ['User_API_Exception', 'get_users', 'get_user_by_id', 'DomoUser']
 
-# %% ../../nbs/feature/users.ipynb 2
-from dataclasses import dataclass , field
+# %% ../../nbs/feature/users.ipynb 3
+from dataclasses import dataclass, field
 
 import mbison.client.core as dmda
 
-# %% ../../nbs/feature/users.ipynb 5
+# %% ../../nbs/feature/users.ipynb 7
 class User_API_Exception(dmda.API_Exception):
-    def __init__(self, res, message= None):
+    def __init__(self, res, message=None):
 
-        super().__init__(res = res,message = message)
+        super().__init__(res=res, message=message)
 
-# %% ../../nbs/feature/users.ipynb 6
-def get_users(auth : dmda.DomoAuth , debug_api: bool = False):
+
+def get_users(auth: dmda.DomoAuth, debug_api: bool = False):
+    """warning this is a paginated API, need to reimplement with Loop"""
 
     endpoint = f"/api/content/v3/users/"
 
     params = {"includeDetails": True}
 
     res = dmda.domo_api_request(
-        auth= auth,
+        auth=auth,
         endpoint=endpoint,
-        request_type= "GET",
-        params = params,
-        debug_api= debug_api,
+        request_type="GET",
+        params=params,
+        debug_api=debug_api,
     )
 
-
-    if not res.is_success and res.status == 404 :
-        raise User_API_Exception(res, message = f"unable to find user - {user_id}")
+    if not res.is_success and res.status == 404:
+        raise User_API_Exception(res, message=f"unable to retrieve users")
 
     return res
 
-# %% ../../nbs/feature/users.ipynb 8
-def get_user_by_id(user_id, auth : dmda.DomoAuth , debug_api: bool = False):
+# %% ../../nbs/feature/users.ipynb 9
+def get_user_by_id(user_id, auth: dmda.DomoAuth, debug_api: bool = False):
 
     endpoint = f"/api/content/v3/users/{user_id}"
 
     params = {"includeDetails": True}
 
     res = dmda.domo_api_request(
-        auth= auth,
+        auth=auth,
         endpoint=endpoint,
-        request_type= "GET",
-        params = params,
-        debug_api= debug_api,
+        request_type="GET",
+        params=params,
+        debug_api=debug_api,
     )
 
-
-    if not res.is_success and res.status == 404 :
-        raise User_API_Exception(res, message = f"unable to find user - {user_id}")
+    if not res.is_success and res.status == 404:
+        raise User_API_Exception(res, message=f"unable to find user - {user_id}")
 
     return res
 
-# %% ../../nbs/feature/users.ipynb 10
+# %% ../../nbs/feature/users.ipynb 12
 @dataclass
 class DomoUser:
-    auth :dmda.DomoAuth = field(repr = False)
+    auth: dmda.DomoAuth = field(repr=False)
     id: str
     display_name: str
     role_id: int
-    email : str
+    email: str
 
     @classmethod
-    def from_json(cls, obj, auth : dmda.DomoAuth):
+    def from_json(cls, obj, auth: dmda.DomoAuth):
         return cls(
-            auth = auth, 
-            id = obj['id'],
-            display_name = obj['displayName'],
-            role_id = obj['roleId'],
-            email = obj['detail']['email']
+            auth=auth,
+            id=obj["id"],
+            display_name=obj["displayName"],
+            role_id=obj["roleId"],
+            email=obj["detail"]["email"],
         )
-    
+
     @classmethod
-    def get_by_id(cls, user_id, auth, debug_api : bool = False, return_raw :bool = False):
-        res = get_user_by_id(user_id = user_id, auth =auth, debug_api = debug_api)
+    def get_by_id(
+        cls, user_id, auth, debug_api: bool = False, return_raw: bool = False
+    ):
+        res = get_user_by_id(user_id=user_id, auth=auth, debug_api=debug_api)
 
         if return_raw:
             return res
-        
-        return cls.from_json(obj = res.response , auth = auth)
+
+        return cls.from_json(obj=res.response, auth=auth)

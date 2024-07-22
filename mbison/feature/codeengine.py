@@ -4,7 +4,7 @@
 __all__ = ['get_packages', 'get_package_by_id', 'get_package_versions', 'get_package_version_by_id',
            'DomoCodeEngine_PackageVersion', 'DomoCodeEngine_Package', 'DomoCodeEngine_Packages']
 
-# %% ../../nbs/feature/codeengine.ipynb 1
+# %% ../../nbs/feature/codeengine.ipynb 2
 from dataclasses import dataclass, field
 
 from typing import List
@@ -12,7 +12,7 @@ import datetime as dt
 
 import mbison.client.core as dmda
 
-# %% ../../nbs/feature/codeengine.ipynb 5
+# %% ../../nbs/feature/codeengine.ipynb 6
 def get_packages(auth: dmda.DomoAuth, debug_api : bool = False):
     endpoint = "/api/codeengine/v2/packages"
 
@@ -23,7 +23,7 @@ def get_packages(auth: dmda.DomoAuth, debug_api : bool = False):
 
     return res
 
-# %% ../../nbs/feature/codeengine.ipynb 7
+# %% ../../nbs/feature/codeengine.ipynb 8
 def get_package_by_id(auth: dmda.DomoAuth, package_id, debug_api : bool = False):
         
         endpoint = f"/api/codeengine/v2/packages/{package_id}"
@@ -31,8 +31,9 @@ def get_package_by_id(auth: dmda.DomoAuth, package_id, debug_api : bool = False)
         return dmda.domo_api_request(endpoint=endpoint, request_type = 'get', auth=auth, debug_api=debug_api)
 
 
-# %% ../../nbs/feature/codeengine.ipynb 9
+# %% ../../nbs/feature/codeengine.ipynb 10
 def get_package_versions(auth: dmda.DomoAuth, package_id, debug_api : bool = False):
+        """each package can have one or many version"""
         
         endpoint = f"/api/codeengine/v2/packages/{package_id}/versions/"
 
@@ -50,9 +51,11 @@ def get_package_version_by_id(auth: dmda.DomoAuth, package_id, version, debug_ap
         return dmda.domo_api_request(endpoint=endpoint, request_type = 'get', auth=auth,params=params, debug_api=debug_api)
 
 
-# %% ../../nbs/feature/codeengine.ipynb 13
+# %% ../../nbs/feature/codeengine.ipynb 14
 @dataclass 
 class DomoCodeEngine_PackageVersion:
+    """one package can have multiple versions"""
+    
     auth : dmda.DomoAuth = field(repr = False)
     package_id: str
     version : str
@@ -91,7 +94,7 @@ class DomoCodeEngine_PackageVersion:
 
 
 
-# %% ../../nbs/feature/codeengine.ipynb 15
+# %% ../../nbs/feature/codeengine.ipynb 16
 @dataclass
 class DomoCodeEngine_Package:
     auth: dmda.DomoAuth = field(repr=False)
@@ -110,8 +113,8 @@ class DomoCodeEngine_Package:
     description: str = None
     language: str = None
 
-    dce_versions : List[DomoCodeEngine_PackageVersion] = None
-    dce_current_version : DomoCodeEngine_PackageVersion = None
+    dce_versions: List[DomoCodeEngine_PackageVersion] = None
+    dce_current_version: DomoCodeEngine_PackageVersion = None
 
     @classmethod
     def from_json(cls, auth: dmda.DomoAuth, obj):
@@ -128,7 +131,7 @@ class DomoCodeEngine_Package:
             updated_on_dt=obj["updatedOn"],
             source=obj["packageSource"],
             description=obj.get("description"),
-            current_version = obj.get('versions')[0]['version']
+            current_version=obj.get("versions")[0]["version"],
         )
 
     @classmethod
@@ -145,36 +148,41 @@ class DomoCodeEngine_Package:
             return res
 
         return cls.from_json(auth=auth, obj=res.response)
-    
+
     def get_versions(self, debug_api: bool = False, return_raw: bool = False):
 
-        res = get_package_versions(auth = self.auth, package_id=self.id, debug_api=debug_api)
+        res = get_package_versions(
+            auth=self.auth, package_id=self.id, debug_api=debug_api
+        )
 
         if return_raw:
             return res
-        
-        self.dce_versions = [ DomoCodeEngine_PackageVersion.from_json(auth = self.auth, obj = obj) for obj in res.response]
-        
+
+        self.dce_versions = [
+            DomoCodeEngine_PackageVersion.from_json(auth=self.auth, obj=obj)
+            for obj in res.response
+        ]
+
         return self.dce_versions
-    
+
     def get_current_version(self, debug_api: bool = False, return_raw: bool = False):
 
-        res = DomoCodeEngine_PackageVersion.get_by_id(auth = self.auth, 
-                                                                  package_id=self.id, 
-                                                                  version = self.current_version, 
-                                                                  debug_api= debug_api, 
-                                                                  return_raw=return_raw)
-        
+        res = DomoCodeEngine_PackageVersion.get_by_id(
+            auth=self.auth,
+            package_id=self.id,
+            version=self.current_version,
+            debug_api=debug_api,
+            return_raw=return_raw,
+        )
+
         if return_raw:
             return res
-        
-        self.dce_current_version = res
-        
-        return self.dce_current_version
-        
-        
 
-# %% ../../nbs/feature/codeengine.ipynb 17
+        self.dce_current_version = res
+
+        return self.dce_current_version
+
+# %% ../../nbs/feature/codeengine.ipynb 18
 @dataclass
 class DomoCodeEngine_Packages:
     auth: dmda.DomoAuth = field(repr = False)

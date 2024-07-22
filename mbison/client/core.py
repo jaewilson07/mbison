@@ -3,7 +3,7 @@
 # %% auto 0
 __all__ = ['get_jupyter_account', 'DomoAuth', 'API_Exception', 'ResponseGetData', 'domo_api_request', 'domo_api_stream_request']
 
-# %% ../../nbs/client/core.ipynb 2
+# %% ../../nbs/client/core.ipynb 3
 from dataclasses import dataclass, field
 from typing import Callable
 
@@ -15,7 +15,9 @@ from pprint import pprint
 
 import mbison.utils as dmut
 
-# %% ../../nbs/client/core.ipynb 4
+from nbdev.showdoc import patch_to
+
+# %% ../../nbs/client/core.ipynb 5
 def get_jupyter_account(account_name, domojupyter_fn: Callable):
     creds_json = None
     i = 0
@@ -35,7 +37,7 @@ def get_jupyter_account(account_name, domojupyter_fn: Callable):
 
     return creds_json
 
-# %% ../../nbs/client/core.ipynb 6
+# %% ../../nbs/client/core.ipynb 7
 @dataclass
 class DomoAuth:
     domo_instance: str
@@ -64,46 +66,6 @@ class DomoAuth:
                 access_token=access_token,
                 domo_instance=domo_instance,
             )
-
-    def __post_init__(self):
-
-        if self.username and self.password:
-            print("*** Using Username/Password Auth")
-            self._init_session_token_from_username_password_auth()
-            return
-
-        if self.access_token:
-            print("*** Using Access Token Auth")
-            return
-
-        else:
-            raise Exception(
-                "*** Domo Auth init error: ERROR - valid credential combination not Detected, must pass username and password or session_token"
-            )
-
-    def _init_session_token_from_username_password_auth(self):
-        url = f"https://{self.domo_instance}/api/content/v2/authentication"
-
-        payload = {
-            "method": "password",
-            "emailAddress": self.username,
-            "password": self.password,
-        }
-
-        try:
-            response = requests.post(url, json=payload, headers=self.headers, timeout=3)
-
-        except Exception as e:
-            print("init_session_token - request error: " + str(e))
-
-        self.session_token = response.json().get("sessionToken")
-
-        if not self.session_token:
-            raise Exception(
-                f"init_session_token -- unable to retrieve token - {response.text}"
-            )
-
-        return self.session_token
 
     def generate_request_headers(self):
         headers = {
@@ -141,14 +103,56 @@ class DomoAuth:
 
         return res
 
-# %% ../../nbs/client/core.ipynb 10
+# %% ../../nbs/client/core.ipynb 8
+@patch_to(DomoAuth)
+def __post_init__(self):
+
+    if self.username and self.password:
+        print("*** Using Username/Password Auth")
+        self._init_session_token_from_username_password_auth()
+        return
+
+    if self.access_token:
+        print("*** Using Access Token Auth")
+        return
+
+    else:
+        raise Exception(
+            "*** Domo Auth init error: ERROR - valid credential combination not Detected, must pass username and password or session_token"
+        )
+
+
+@patch_to(DomoAuth)
+def _init_session_token_from_username_password_auth(self):
+    url = f"https://{self.domo_instance}/api/content/v2/authentication"
+
+    payload = {
+        "method": "password",
+        "emailAddress": self.username,
+        "password": self.password,
+    }
+
+    try:
+        response = requests.post(url, json=payload, headers=self.headers, timeout=3)
+
+    except Exception as e:
+        print("init_session_token - request error: " + str(e))
+
+    self.session_token = response.json().get("sessionToken")
+
+    if not self.session_token:
+        raise Exception(
+            f"init_session_token -- unable to retrieve token - {response.text}"
+        )
+
+    return self.session_token
+
+# %% ../../nbs/client/core.ipynb 12
 class API_Exception(Exception):
 
     def __init__(self, res, message: str = None):
         message = message or ""
-
         base = f" || {str(res.status)} - {res.response.get('message') or res.response.get('statusReason')} || {res.auth.domo_instance}"
-
         message += base
 
         super().__init__(message)
@@ -156,10 +160,11 @@ class API_Exception(Exception):
 
 @dataclass
 class ResponseGetData:
+    auth: DomoAuth = field(repr=False)
     response: dict
     is_success: bool
     status: int
-    auth: DomoAuth = field(repr=False)
+    download_path: str = None
 
     @classmethod
     def from_response(cls, res, auth: DomoAuth):
@@ -183,8 +188,8 @@ class ResponseGetData:
         return True
 
     @staticmethod
-    def _read_stream(file_name: str):
-        with open(file_name, "rb") as f:
+    def read_stream(download_path ):
+        with open(download_path , "rb") as f:
             return f.read()
 
     @classmethod
@@ -197,13 +202,17 @@ class ResponseGetData:
         cls._write_stream(res, download_path)
 
         return cls(
-            response=cls._read_stream(download_path),
+            response=True if cls.read_stream(download_path) else False,
             is_success=res.ok,
             status=res.status_code,
             auth=auth,
+            download_path = download_path
         )
 
 
+
+
+# %% ../../nbs/client/core.ipynb 13
 def domo_api_request(
     auth: DomoAuth,
     endpoint,
@@ -251,7 +260,6 @@ def domo_api_request(
 
     return ResponseGetData.from_response(res=response, auth=auth)
 
-# %% ../../nbs/client/core.ipynb 11
 def domo_api_stream_request(
     auth: DomoAuth,
     endpoint,
@@ -285,10 +293,8 @@ def domo_api_stream_request(
     res = requests.get(
         url=url, headers=headers, params=params, timeout=timeout, stream=True
     )
-    
+
     if not res.ok:
         return ResponseGetData.from_response(res=res, auth=auth)
 
-    return ResponseGetData.from_stream(
-        res=res, download_path=download_path, auth=auth
-    )
+    return ResponseGetData.from_stream(res=res, download_path=download_path, auth=auth)
