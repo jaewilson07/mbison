@@ -63,8 +63,6 @@ def get_app_source_by_version(
         download_path=download_path,
     )
 
-    print(res)
-
     if not res.is_success:
         raise App_API_Exception(res = res, message = f"unable to download assets for {design_id}")
 

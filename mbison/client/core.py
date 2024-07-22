@@ -123,9 +123,9 @@ class DomoAuth:
             "generate_request_headers: unable to authenticate request with provided Auth"
         )
 
-    def who_am_i(self):
+    def who_am_i(self, return_raw: bool = False):
         """identify which credentials are being used in this Auth Object (useful for access_token based authentication)"""
-        
+
         url = f"https://{self.domo_instance}.domo.com/api/content/v2/users/me"
 
         res = json.loads(
@@ -134,7 +134,10 @@ class DomoAuth:
             ).text
         )
 
-        self.username = res["userName"]
+        if return_raw:
+            return res
+
+        self.username = res["emailAddress"]
 
         return res
 

@@ -3,7 +3,7 @@
 # %% auto 0
 __all__ = ['SourceCode_Enum', 'DocumentSource', 'DocumentSources']
 
-# %% ../../nbs/implementation/monitoring.ipynb 1
+# %% ../../nbs/implementation/monitoring.ipynb 2
 from dataclasses import dataclass, field
 
 from typing import List
@@ -18,8 +18,9 @@ import mbison.feature.enterprise_apps as dmap
 import mbison.utils as dmut
 
 
-# %% ../../nbs/implementation/monitoring.ipynb 4
+# %% ../../nbs/implementation/monitoring.ipynb 5
 class SourceCode_Enum:
+    """captures metadata about where source came from"""
     CODE_ENGINE = "Code Engine"
     ENTERPRISE_APP = "Enterprise App"
 
