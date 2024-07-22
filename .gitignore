@@ -23,6 +23,7 @@ __pycache__/
 *.so
 
 /TEST/
+
 # Distribution / packaging
 .Python
 env/

@@ -124,6 +124,8 @@ class DomoAuth:
         )
 
     def who_am_i(self):
+        """identify which credentials are being used in this Auth Object (useful for access_token based authentication)"""
+        
         url = f"https://{self.domo_instance}.domo.com/api/content/v2/users/me"
 
         res = json.loads(
@@ -184,6 +186,10 @@ class ResponseGetData:
 
     @classmethod
     def from_stream(cls, res: requests.Response, download_path: str, auth: DomoAuth):
+
+        if not res.ok:
+            return cls.from_response(res = res ,auth = auth)
+
 
         cls._write_stream(res, download_path)
 

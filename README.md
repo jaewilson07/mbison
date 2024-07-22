@@ -7,16 +7,23 @@ documentation.
 
 ## Install
 
-``` sh
-pip install nbdev_hello_world
+```sh
+pip install mbison
 ```
 
 ## How to use
 
-Fill me in please! Don’t forget code examples:
+> Base classes and routes for authentication, and dealing with api responses.
 
-``` python
-1+1
-```
+- `DomoAuth` encapsulates authentication. Can init with username/password or access_token
+- For consistency, use `domo_api_request` to handle API requests in route functions. `domo_api_requests` and `route functions` should always return an instance of `ResponseGetData` class. For streaming responses, use `domo_api_stream_request` to automagically download API responses in route functions.
+- `Route Functions` should always throw an error if not `ResponseGetData.is_success`
 
-    2
+Features or classes are implemented as separate notebooks and then exported into their own module folder (see `default_exp` line in each .ipynb file)
+
+- each feature should be implemented as series of route functions ('GET', 'PUT', 'POST' requests), then a `@dataclass` class may be used to represent the feature with methods that wrap and provide logic around route functions.
+  - ex. an UPSERT method might wrap logic to test if the entity already exists (in which case call the PUT route) or create the entity if it doesn't already exist ('POST')
+- `@classmethods` return an instance of the class
+  - ex. each class should have a `get_by_id` method which returns an instance of the entity (typically the result of the search datacenter API)
+
+Implementations, take a set of features and create a use case or project - ex.back up code engine and custom app (features) into appdb collections (feature)

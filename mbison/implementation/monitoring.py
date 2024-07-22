@@ -141,27 +141,36 @@ class DocumentSources:
 
         return self.documents
 
-    def get_custom_apps(self, download_folder="./EXPORT", debug_api : bool = False):
-        domo_apps = dmap.DomoEnterpriseApps(auth=self.auth).get_apps()
-
-        for app in domo_apps:
+    @staticmethod
+    def _download_custom_app_sourcecode(app, download_folder, debug_api: bool = False):
             zip_name = "_package.zip"
             _download_folder = f"{download_folder}/{app.name}/{app.current_version}"
-            
-            try:
-                app.get_source_code(download_folder=_download_folder, file_name=zip_name, debug_api = debug_api)
 
+            try:
+                res = app.get_source_code(download_folder=_download_folder, file_name=zip_name, debug_api = debug_api)
+                
+                zip_file_path=os.path.join(
+                        _download_folder, zip_name
+                    )
+                
                 path_ls = dmut.download_zip(
                     output_folder=_download_folder,
-                    zip_file_path=os.path.join(
-                        _download_folder, zip_name
-                    ),
+                    zip_file_path=zip_file_path,
                 )
 
-                print(path_ls)
+                res.response = path_ls
+
+                return res
             
             except dmap.App_API_Exception as e:
                 print(e)
+                return False
+
+
+    def get_custom_apps(self, download_folder="./EXPORT", debug_api : bool = False):
+        domo_apps = dmap.DomoEnterpriseApps(auth=self.auth).get_apps()
+
+        return [self._download_custom_app_sourcecode(app = app, download_folder = download_folder, debug_api = debug_api) for app in domo_apps]            
 
 
     def add_document(self, document: DocumentSource):

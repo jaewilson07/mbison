@@ -136,7 +136,7 @@ class DomoEnterpriseApp:
         file_name = dmut.change_suffix(file_name, ".zip")
 
         download_path = os.path.join(download_folder, file_name)
-        dmut.upsert_folder(download_path)
+        
 
         return get_app_source_by_version(
             auth=self.auth,
