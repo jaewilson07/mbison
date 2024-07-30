@@ -93,7 +93,7 @@ def get_all_apps(auth: dmda.DomoAuth, debug_api: bool = False):
 
     return res
 
-# %% ../../nbs/feature/enterprise_apps.ipynb 14
+# %% ../../nbs/feature/enterprise_apps.ipynb 15
 @dataclass
 class DomoEnterpriseApp:
     auth: dmda.DomoAuth = field(repr=False)
@@ -112,7 +112,7 @@ class DomoEnterpriseApp:
         domo_user = None
 
         try:
-            if obj["owner"]:
+            if obj.get("owner"):
                 domo_user = dmdu.DomoUser.get_by_id(
                     user_id=obj["owner"], auth=auth, debug_api=debug_api
                 )
@@ -178,7 +178,7 @@ class DomoEnterpriseApp:
         self.versions = res.response
         return self.versions
 
-# %% ../../nbs/feature/enterprise_apps.ipynb 17
+# %% ../../nbs/feature/enterprise_apps.ipynb 18
 @dataclass
 class DomoEnterpriseApps:
     auth : dmda.DomoAuth = field(repr = False)
