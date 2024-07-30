@@ -1,0 +1,1340 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.5.55">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>appdb – mbison</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../styles.css">
+<meta property="og:title" content="appdb – mbison">
+<meta property="og:description" content="Hello world from nbdev">
+<meta property="og:site_name" content="mbison">
+<meta name="twitter:title" content="appdb – mbison">
+<meta name="twitter:description" content="Hello world from nbdev">
+<meta name="twitter:card" content="summary">
+</head>
+
+<body class="nav-sidebar floating nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">mbison</span>
+    </a>
+  </div>
+        <div class="quarto-navbar-tools tools-end">
+</div>
+          <div id="quarto-search" class="" title="Search"></div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../feature/appdb.html">feature</a></li><li class="breadcrumb-item"><a href="../feature/appdb.html">appdb</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">mbison</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">client</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../client/core.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Core</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../client/utils.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">utils</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">feature</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../feature/appdb.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">appdb</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../feature/cards.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">cards</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../feature/codeengine.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">CodeEngine</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../feature/datasets.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Dataset</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../feature/enterprise_apps.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">EnterpriseApps</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../feature/users.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Users</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">implementation</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../implementation/monitor_1_app.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Monitoring Source Code Project</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../implementation/monitoring.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Monitoring Source Code Project</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#routes" id="toc-routes" class="nav-link active" data-scroll-target="#routes">Routes</a>
+  <ul class="collapse">
+  <li><a href="#appdb_api_exception" id="toc-appdb_api_exception" class="nav-link" data-scroll-target="#appdb_api_exception">AppDb_API_Exception</a></li>
+  <li><a href="#get_collections" id="toc-get_collections" class="nav-link" data-scroll-target="#get_collections">get_collections</a></li>
+  <li><a href="#get_collection_by_id" id="toc-get_collection_by_id" class="nav-link" data-scroll-target="#get_collection_by_id">get_collection_by_id</a></li>
+  <li><a href="#query_collection_documents" id="toc-query_collection_documents" class="nav-link" data-scroll-target="#query_collection_documents">query_collection_documents</a></li>
+  <li><a href="#get_collection_document_by_id" id="toc-get_collection_document_by_id" class="nav-link" data-scroll-target="#get_collection_document_by_id">get_collection_document_by_id</a></li>
+  <li><a href="#classes" id="toc-classes" class="nav-link" data-scroll-target="#classes">Classes</a></li>
+  <li><a href="#appdbdocument" id="toc-appdbdocument" class="nav-link" data-scroll-target="#appdbdocument">AppDbDocument</a></li>
+  <li><a href="#to_json" id="toc-to_json" class="nav-link" data-scroll-target="#to_json">to_json</a></li>
+  <li><a href="#appdbcollection" id="toc-appdbcollection" class="nav-link" data-scroll-target="#appdbcollection">AppDbCollection</a></li>
+  </ul></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/fastai/mbison/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../feature/appdb.html">feature</a></li><li class="breadcrumb-item"><a href="../feature/appdb.html">appdb</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">appdb</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<!-- WARNING: THIS FILE WAS AUTOGENERATED! DO NOT EDIT! -->
+<div id="cell-2" class="cell" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>auth <span class="op">=</span> dmda.DomoAuth(</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    domo_instance<span class="op">=</span>os.environ[<span class="st">"DOMO_INSTANCE"</span>],</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    access_token<span class="op">=</span>os.environ[<span class="st">"DOMO_ACCESS_TOKEN"</span>],</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>auth</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="13">
+<pre><code>DomoAuth(domo_instance='domo-community', username=None)</code></pre>
+</div>
+</div>
+<div id="cell-3" class="cell" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>collection_id <span class="op">=</span> <span class="st">'0f68f250-df2c-4a15-98ef-9cdd851602eb'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="routes" class="level2">
+<h2 class="anchored" data-anchor-id="routes">Routes</h2>
+<hr>
+<p><a href="https://github.com/fastai/mbison/blob/master/mbison/feature/appdb.py#L18" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<section id="appdb_api_exception" class="level3">
+<h3 class="anchored" data-anchor-id="appdb_api_exception">AppDb_API_Exception</h3>
+<blockquote class="blockquote">
+<pre><code> AppDb_API_Exception (res, message=None)</code></pre>
+</blockquote>
+<p><em>Common base class for all non-exit exceptions.</em></p>
+<div id="cell-6" class="cell" data-execution_count="15">
+<details open="" class="code-fold">
+<summary>Exported source</summary>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> AppDb_API_Exception(dmda.API_Exception):</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, res, message<span class="op">=</span><span class="va">None</span>):</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>        <span class="bu">super</span>().<span class="fu">__init__</span>(res<span class="op">=</span>res, message<span class="op">=</span>message)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<hr>
+<p><a href="https://github.com/fastai/mbison/blob/master/mbison/feature/appdb.py#L24" target="_blank" style="float:right; font-size:smaller">source</a></p>
+</section>
+<section id="get_collections" class="level3">
+<h3 class="anchored" data-anchor-id="get_collections">get_collections</h3>
+<blockquote class="blockquote">
+<pre><code> get_collections (auth:mbison.client.core.DomoAuth, debug_api:bool=False,
+                  datastore_id:str=None)</code></pre>
+</blockquote>
+<p><em>retrieve collections</em></p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th></th>
+<th><strong>Type</strong></th>
+<th><strong>Default</strong></th>
+<th><strong>Details</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>auth</td>
+<td>DomoAuth</td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>debug_api</td>
+<td>bool</td>
+<td>False</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>datastore_id</td>
+<td>str</td>
+<td>None</td>
+<td>filters for a specific datastoreId</td>
+</tr>
+</tbody>
+</table>
+<div id="cell-8" class="cell" data-execution_count="16">
+<details open="" class="code-fold">
+<summary>Exported source</summary>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> get_collections(</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    auth: dmda.DomoAuth,</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    debug_api: <span class="bu">bool</span> <span class="op">=</span> <span class="va">False</span>,</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    datastore_id : <span class="bu">str</span> <span class="op">=</span> <span class="va">None</span>, <span class="co"># filters for a specific datastoreId</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>):</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""retrieve collections"""</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>    endpoint <span class="op">=</span> <span class="ss">f"/api/datastores/v1/collections/"</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>    res <span class="op">=</span>  dmda.domo_api_request(</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>        auth<span class="op">=</span>auth,</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>        request_type<span class="op">=</span><span class="st">"GET"</span>,</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>        endpoint<span class="op">=</span> endpoint,</span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>        debug_api<span class="op">=</span>debug_api,</span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>        params <span class="op">=</span> {<span class="st">'datastoreId'</span>: datastore_id}</span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="kw">not</span> res.is_success <span class="kw">and</span> res.status <span class="op">==</span> <span class="dv">400</span>:</span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>        <span class="cf">raise</span> AppDb_API_Exception(res, message <span class="op">=</span> <span class="ss">f"invalid datastoreId  - </span><span class="sc">{</span>datastore_id<span class="sc">}</span><span class="ss">?"</span>)</span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="kw">not</span> res.is_success:</span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>        <span class="cf">raise</span> AppDb_API_Exception(res)</span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> res</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div id="cell-9" class="cell" data-execution_count="17">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>res <span class="op">=</span> get_collections(auth<span class="op">=</span>auth, debug_api<span class="op">=</span> <span class="va">False</span>,</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>                    <span class="co">#   datastore_id = datastore_id</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>                      )</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>collections <span class="op">=</span> res.response</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>collections[<span class="dv">0</span>:<span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="17">
+<pre><code>[{'id': '3e6ba7a6-9261-44fd-8eef-987fdbb99e18',
+  'datastoreId': 'de230a76-bc70-404e-b3f4-a6f7dea45723',
+  'defaultPermissions': None,
+  'requiredAuthorities': None,
+  'owner': 826020125,
+  'name': 'ColumnConfig',
+  'datasourceId': None,
+  'schema': None,
+  'filters': None,
+  'syncEnabled': False,
+  'syncRequired': False,
+  'fullReplaceRequired': False,
+  'lastSync': None,
+  'createdOn': '2020-11-20T17:58:42.550Z',
+  'updatedOn': '2023-02-14T20:17:27.920Z',
+  'updatedBy': 826020125}]</code></pre>
+</div>
+</div>
+<hr>
+<p><a href="https://github.com/fastai/mbison/blob/master/mbison/feature/appdb.py#L50" target="_blank" style="float:right; font-size:smaller">source</a></p>
+</section>
+<section id="get_collection_by_id" class="level3">
+<h3 class="anchored" data-anchor-id="get_collection_by_id">get_collection_by_id</h3>
+<blockquote class="blockquote">
+<pre><code> get_collection_by_id (auth:mbison.client.core.DomoAuth,
+                       collection_id:str, debug_api:bool=False)</code></pre>
+</blockquote>
+<div id="cell-11" class="cell" data-execution_count="18">
+<details open="" class="code-fold">
+<summary>Exported source</summary>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> get_collection_by_id(</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>    auth: dmda.DomoAuth,</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    collection_id : <span class="bu">str</span>,</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    debug_api: <span class="bu">bool</span> <span class="op">=</span> <span class="va">False</span>,</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>):</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>    endpoint <span class="op">=</span> <span class="ss">f"/api/datastores/v1/collections/</span><span class="sc">{</span>collection_id<span class="sc">}</span><span class="ss">"</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>    res <span class="op">=</span>  dmda.domo_api_request(</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>        auth<span class="op">=</span>auth,</span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>        request_type<span class="op">=</span><span class="st">"GET"</span>,</span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>        endpoint<span class="op">=</span> endpoint,</span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>        debug_api<span class="op">=</span>debug_api,</span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="kw">not</span> res.is_success:</span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a>        <span class="cf">raise</span> AppDb_API_Exception(res)</span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> res</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div id="cell-12" class="cell" data-execution_count="19">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>res <span class="op">=</span> get_collection_by_id(auth<span class="op">=</span>auth, debug_api<span class="op">=</span> <span class="va">False</span>, </span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>                        <span class="co">#    collection_id =  collections[0]['id']</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>                           collection_id <span class="op">=</span> <span class="st">'0f68f250-df2c-4a15-98ef-9cdd851602eb'</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>                             )</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>collection <span class="op">=</span> res.response</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>collection</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="19">
+<pre><code>{'id': '0f68f250-df2c-4a15-98ef-9cdd851602eb',
+ 'datastoreId': '6aa87886-9167-4191-8491-c9b5bc8bece5',
+ 'defaultPermissions': 'read,read_content',
+ 'requiredAuthorities': {'CREATE': ['domoapps.edit'],
+  'CREATE_CONTENT': ['domoapps.edit'],
+  'DELETE': ['domoapps.edit'],
+  'DELETE_CONTENT': ['domoapps.edit'],
+  'UPDATE': ['domoapps.edit'],
+  'UPDATE_CONTENT': ['domoapps.edit']},
+ 'owner': 1893952720,
+ 'name': 'ddx_app_client_code',
+ 'datasourceId': None,
+ 'schema': None,
+ 'filters': None,
+ 'syncEnabled': False,
+ 'syncRequired': False,
+ 'fullReplaceRequired': False,
+ 'lastSync': None,
+ 'createdOn': '2024-05-30T07:45:21.869Z',
+ 'updatedOn': '2024-05-30T07:45:21.869Z',
+ 'updatedBy': 1893952720}</code></pre>
+</div>
+</div>
+<hr>
+<p><a href="https://github.com/fastai/mbison/blob/master/mbison/feature/appdb.py#L71" target="_blank" style="float:right; font-size:smaller">source</a></p>
+</section>
+<section id="query_collection_documents" class="level3">
+<h3 class="anchored" data-anchor-id="query_collection_documents">query_collection_documents</h3>
+<blockquote class="blockquote">
+<pre><code> query_collection_documents (auth:mbison.client.core.DomoAuth,
+                             collection_id:str, query:dict=None,
+                             debug_api:bool=False)</code></pre>
+</blockquote>
+<div id="cell-14" class="cell" data-execution_count="20">
+<details open="" class="code-fold">
+<summary>Exported source</summary>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> query_collection_documents(</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>    auth: dmda.DomoAuth,</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>    collection_id: <span class="bu">str</span>,</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>    query : <span class="bu">dict</span> <span class="op">=</span> <span class="va">None</span>,</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>    debug_api : <span class="bu">bool</span> <span class="op">=</span> <span class="va">False</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>):</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>    endpoint <span class="op">=</span> <span class="ss">f'/api/datastores/v2/collections/</span><span class="sc">{</span>collection_id<span class="sc">}</span><span class="ss">/documents/query'</span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>    query <span class="op">=</span> query <span class="kw">or</span> {}</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>    res <span class="op">=</span>  dmda.domo_api_request(</span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>        auth<span class="op">=</span>auth,</span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>        request_type<span class="op">=</span><span class="st">"POST"</span>,</span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>        endpoint<span class="op">=</span> endpoint,</span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>        debug_api<span class="op">=</span>debug_api,</span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a>        body <span class="op">=</span> query</span>
+<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="kw">not</span> res.is_success:</span>
+<span id="cb15-20"><a href="#cb15-20" aria-hidden="true" tabindex="-1"></a>        <span class="cf">raise</span> AppDb_API_Exception(res)</span>
+<span id="cb15-21"><a href="#cb15-21" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb15-22"><a href="#cb15-22" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> res</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div id="cell-15" class="cell" data-execution_count="21">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>res <span class="op">=</span> query_collection_documents(auth<span class="op">=</span>auth,</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>                                 debug_api<span class="op">=</span> <span class="va">False</span>,</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>                                 collection_id <span class="op">=</span> collection[<span class="st">'id'</span>]</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>                                 )</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>documents <span class="op">=</span> res.response</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>documents</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="21">
+<pre><code>[{'id': '302663f9-c0bc-4413-894a-3075711b3600',
+  'datastoreId': '6aa87886-9167-4191-8491-c9b5bc8bece5',
+  'collectionId': '0f68f250-df2c-4a15-98ef-9cdd851602eb',
+  'syncRequired': True,
+  'owner': '1893952720',
+  'createdBy': '1893952720',
+  'createdOn': '2024-05-30T07:45:25.355Z',
+  'updatedOn': '2024-05-30T10:14:07.365Z',
+  'updatedBy': '1893952720',
+  'content': {'htmlEasy': {'js': 'fakeEmail = "ar@test.com";\r\n// fakeEmail = domo.env.userEmail;\r\n\r\n//Available globals\r\nvar domo = window.domo; // For more on domo.js: https://developer.domo.com/docs/dev-studio-guides/domo-js#domo.get\r\nvar datasets = window.datasets;\r\n\r\nlet whoami = domo.env.userId\r\nconsole.log(whoami)\r\nwhoami = 612085674 //noah\r\n\r\nSQL_activityLog = "select `SOURCE_ID` as user_id, `Object_ID` as page_id, count(*) as viewCount FROM dataset1 where `Action` = \'VIEWED\' and `Object_Type` = \'PAGE\' and `SOURCE_ID` = \'" + whoami +"\'  GROUP BY `Object_ID`, `Source_ID` ORDER BY count(*)"\r\n\r\nfunction mergeRowsColumns(rows, columns) {\r\n  return rows.map((row) =&gt; {\r\n    let obj = {};\r\n    row.forEach((item, index) =&gt; {\r\n      obj[columns[index]] = item;\r\n    });\r\n    return obj;\r\n  });\r\n}\r\n\r\nconst get_data = async (sql_str, dataset_alias) =&gt; {\r\n  api_str = `/sql/v1/${dataset_alias}`;\r\n  console.log(api_str, sql_str);\r\n\r\n  res = await domo.post(api_str, sql_str, { contentType: "text/plain" });\r\n\r\n  return mergeRowsColumns((rows = res.rows), (columns = res.columns));\r\n};\r\n\r\nconst paint_links = (links)=&gt; {\r\n  return links.reduce( (accum, link) =&gt;  {\r\n    accum += `&lt;div &gt;${link.page_id}&lt;div&gt;`\r\n    return accum } \r\n    , "")\r\n}\r\n\r\nconst main = async () =&gt; {\r\n  const whodiv = document.getElementById(\'whoami\')\r\n  whodiv.innerHTML = whoami\r\n  \r\n  const mydiv = document.getElementById(\'myDiv\')\r\n  \r\n  const data = await get_data(sql_str = SQL_activityLog, \'dataset1\')\r\n  console.log(mydiv)\r\n  mydiv.innerHTML = paint_links(data)\r\n}\r\n\r\nmain()',
+    'html': '&lt;div&gt;\n  &lt;div id = "whoami"/&gt;\n  &lt;div id = "myDiv" /&gt;\n&lt;/div&gt;',
+    'css': '#myDiv {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  background: rgb(131,58,180);\n\tbackground: linear-gradient(90deg, rgba(121,64,161,1) 0%, rgba(228,88,80,1) 50%, rgba(251,141,52,1) 100%);\n  height: calc(100vh);\n}\n\nh1 {\n  color: white;\n}'}}}]</code></pre>
+</div>
+</div>
+<hr>
+<p><a href="https://github.com/fastai/mbison/blob/master/mbison/feature/appdb.py#L96" target="_blank" style="float:right; font-size:smaller">source</a></p>
+</section>
+<section id="get_collection_document_by_id" class="level3">
+<h3 class="anchored" data-anchor-id="get_collection_document_by_id">get_collection_document_by_id</h3>
+<blockquote class="blockquote">
+<pre><code> get_collection_document_by_id (auth:mbison.client.core.DomoAuth,
+                                collection_id:str, document_id:str,
+                                query:dict=None, debug_api:bool=False)</code></pre>
+</blockquote>
+<div id="cell-17" class="cell" data-execution_count="22">
+<details open="" class="code-fold">
+<summary>Exported source</summary>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> get_collection_document_by_id(</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>    auth: dmda.DomoAuth,</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>    collection_id: <span class="bu">str</span>,</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>    document_id : <span class="bu">str</span>,</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>    query : <span class="bu">dict</span> <span class="op">=</span> <span class="va">None</span>,</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>    debug_api : <span class="bu">bool</span> <span class="op">=</span> <span class="va">False</span></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>):</span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>    endpoint <span class="op">=</span> <span class="ss">f'/api/datastores/v2/collections/</span><span class="sc">{</span>collection_id<span class="sc">}</span><span class="ss">/documents/</span><span class="sc">{</span>document_id<span class="sc">}</span><span class="ss">'</span></span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>    query <span class="op">=</span> query <span class="kw">or</span> {}</span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>    res <span class="op">=</span>  dmda.domo_api_request(</span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a>        auth<span class="op">=</span>auth,</span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a>        request_type<span class="op">=</span><span class="st">"GET"</span>,</span>
+<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a>        endpoint<span class="op">=</span> endpoint,</span>
+<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a>        debug_api<span class="op">=</span>debug_api,</span>
+<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a>        body <span class="op">=</span> query</span>
+<span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb19-19"><a href="#cb19-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-20"><a href="#cb19-20" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="kw">not</span> res.is_success:</span>
+<span id="cb19-21"><a href="#cb19-21" aria-hidden="true" tabindex="-1"></a>        <span class="cf">raise</span> AppDb_API_Exception(res)</span>
+<span id="cb19-22"><a href="#cb19-22" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb19-23"><a href="#cb19-23" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> res</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div id="cell-18" class="cell" data-execution_count="23">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>res <span class="op">=</span> get_collection_document_by_id(auth<span class="op">=</span>auth,</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>                                 debug_api<span class="op">=</span> <span class="va">False</span>,</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>                                 collection_id <span class="op">=</span> documents[<span class="dv">0</span>][<span class="st">'collectionId'</span>],</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>                                 document_id <span class="op">=</span> documents[<span class="dv">0</span>][<span class="st">'id'</span>]</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>                                 )</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>document <span class="op">=</span> res.response</span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>document</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="23">
+<pre><code>{'id': '302663f9-c0bc-4413-894a-3075711b3600',
+ 'datastoreId': '6aa87886-9167-4191-8491-c9b5bc8bece5',
+ 'collectionId': '0f68f250-df2c-4a15-98ef-9cdd851602eb',
+ 'syncRequired': True,
+ 'owner': '1893952720',
+ 'createdBy': '1893952720',
+ 'createdOn': '2024-05-30T07:45:25.355Z',
+ 'updatedOn': '2024-05-30T10:14:07.365Z',
+ 'updatedBy': '1893952720',
+ 'content': {'htmlEasy': {'js': 'fakeEmail = "ar@test.com";\r\n// fakeEmail = domo.env.userEmail;\r\n\r\n//Available globals\r\nvar domo = window.domo; // For more on domo.js: https://developer.domo.com/docs/dev-studio-guides/domo-js#domo.get\r\nvar datasets = window.datasets;\r\n\r\nlet whoami = domo.env.userId\r\nconsole.log(whoami)\r\nwhoami = 612085674 //noah\r\n\r\nSQL_activityLog = "select `SOURCE_ID` as user_id, `Object_ID` as page_id, count(*) as viewCount FROM dataset1 where `Action` = \'VIEWED\' and `Object_Type` = \'PAGE\' and `SOURCE_ID` = \'" + whoami +"\'  GROUP BY `Object_ID`, `Source_ID` ORDER BY count(*)"\r\n\r\nfunction mergeRowsColumns(rows, columns) {\r\n  return rows.map((row) =&gt; {\r\n    let obj = {};\r\n    row.forEach((item, index) =&gt; {\r\n      obj[columns[index]] = item;\r\n    });\r\n    return obj;\r\n  });\r\n}\r\n\r\nconst get_data = async (sql_str, dataset_alias) =&gt; {\r\n  api_str = `/sql/v1/${dataset_alias}`;\r\n  console.log(api_str, sql_str);\r\n\r\n  res = await domo.post(api_str, sql_str, { contentType: "text/plain" });\r\n\r\n  return mergeRowsColumns((rows = res.rows), (columns = res.columns));\r\n};\r\n\r\nconst paint_links = (links)=&gt; {\r\n  return links.reduce( (accum, link) =&gt;  {\r\n    accum += `&lt;div &gt;${link.page_id}&lt;div&gt;`\r\n    return accum } \r\n    , "")\r\n}\r\n\r\nconst main = async () =&gt; {\r\n  const whodiv = document.getElementById(\'whoami\')\r\n  whodiv.innerHTML = whoami\r\n  \r\n  const mydiv = document.getElementById(\'myDiv\')\r\n  \r\n  const data = await get_data(sql_str = SQL_activityLog, \'dataset1\')\r\n  console.log(mydiv)\r\n  mydiv.innerHTML = paint_links(data)\r\n}\r\n\r\nmain()',
+   'html': '&lt;div&gt;\n  &lt;div id = "whoami"/&gt;\n  &lt;div id = "myDiv" /&gt;\n&lt;/div&gt;',
+   'css': '#myDiv {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  background: rgb(131,58,180);\n\tbackground: linear-gradient(90deg, rgba(121,64,161,1) 0%, rgba(228,88,80,1) 50%, rgba(251,141,52,1) 100%);\n  height: calc(100vh);\n}\n\nh1 {\n  color: white;\n}'}}}</code></pre>
+</div>
+</div>
+</section>
+<section id="classes" class="level3">
+<h3 class="anchored" data-anchor-id="classes">Classes</h3>
+<hr>
+<p><a href="https://github.com/fastai/mbison/blob/master/mbison/feature/appdb.py#L144" target="_blank" style="float:right; font-size:smaller">source</a></p>
+</section>
+<section id="appdbdocument" class="level3">
+<h3 class="anchored" data-anchor-id="appdbdocument">AppDbDocument</h3>
+<blockquote class="blockquote">
+<pre><code> AppDbDocument (auth:mbison.client.core.DomoAuth, _collection_id:str,
+                _identity_columns:List[str], _id:str=None,
+                _created_on_dt:datetime.datetime=None,
+                _updated_on_dt:datetime.datetime=None, content:dict=None)</code></pre>
+</blockquote>
+<div id="cell-21" class="cell" data-execution_count="24">
+<details open="" class="code-fold">
+<summary>Exported source</summary>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> to_json(value):</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="co">    converts complex dictionaries with nested classes to dictionary.</span></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="co">    assumes nested classes have a `to_json` method</span></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="bu">hasattr</span>(value, <span class="st">"to_json"</span>):</span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> value.to_json()</span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="bu">isinstance</span>(value, <span class="bu">dict</span>):</span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> {key: to_json(v) <span class="cf">for</span> key, v <span class="kw">in</span> value.items()}</span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="bu">isinstance</span>(value, <span class="bu">list</span>):</span>
+<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> [to_json(v) <span class="cf">for</span> v <span class="kw">in</span> value]</span>
+<span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-16"><a href="#cb23-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="bu">isinstance</span>(value, Number):</span>
+<span id="cb23-17"><a href="#cb23-17" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> value</span>
+<span id="cb23-18"><a href="#cb23-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-19"><a href="#cb23-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="bu">str</span>(value)</span>
+<span id="cb23-20"><a href="#cb23-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-21"><a href="#cb23-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-22"><a href="#cb23-22" aria-hidden="true" tabindex="-1"></a><span class="at">@dataclass</span></span>
+<span id="cb23-23"><a href="#cb23-23" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> AppDbDocument:</span>
+<span id="cb23-24"><a href="#cb23-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-25"><a href="#cb23-25" aria-hidden="true" tabindex="-1"></a>    auth: dmda.DomoAuth <span class="op">=</span> field(<span class="bu">repr</span><span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb23-26"><a href="#cb23-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-27"><a href="#cb23-27" aria-hidden="true" tabindex="-1"></a>    <span class="co"># document metadata</span></span>
+<span id="cb23-28"><a href="#cb23-28" aria-hidden="true" tabindex="-1"></a>    _collection_id: <span class="bu">str</span></span>
+<span id="cb23-29"><a href="#cb23-29" aria-hidden="true" tabindex="-1"></a>    _identity_columns: List[<span class="bu">str</span>]</span>
+<span id="cb23-30"><a href="#cb23-30" aria-hidden="true" tabindex="-1"></a>    _id: <span class="bu">str</span> <span class="op">=</span> <span class="va">None</span></span>
+<span id="cb23-31"><a href="#cb23-31" aria-hidden="true" tabindex="-1"></a>    _created_on_dt: dt.datetime <span class="op">=</span> <span class="va">None</span></span>
+<span id="cb23-32"><a href="#cb23-32" aria-hidden="true" tabindex="-1"></a>    _updated_on_dt: dt.datetime <span class="op">=</span> <span class="va">None</span></span>
+<span id="cb23-33"><a href="#cb23-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-34"><a href="#cb23-34" aria-hidden="true" tabindex="-1"></a>    content: <span class="bu">dict</span> <span class="op">=</span> <span class="va">None</span></span>
+<span id="cb23-35"><a href="#cb23-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-36"><a href="#cb23-36" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> to_json(<span class="va">self</span>):</span>
+<span id="cb23-37"><a href="#cb23-37" aria-hidden="true" tabindex="-1"></a>        <span class="co"># TO DO - this is not a complete recursive implementation,  may need revision for complex dictionaries</span></span>
+<span id="cb23-38"><a href="#cb23-38" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.update_config()</span>
+<span id="cb23-39"><a href="#cb23-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-40"><a href="#cb23-40" aria-hidden="true" tabindex="-1"></a>        s <span class="op">=</span> {<span class="st">"id"</span>: <span class="va">self</span>._id, <span class="st">"collectionId"</span>: <span class="va">self</span>._collection_id}</span>
+<span id="cb23-41"><a href="#cb23-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-42"><a href="#cb23-42" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> key, value <span class="kw">in</span> <span class="va">self</span>.__dict__.items():</span>
+<span id="cb23-43"><a href="#cb23-43" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> key.startswith(<span class="st">"_"</span>) <span class="kw">or</span> key <span class="kw">in</span> [<span class="st">"auth"</span>]:</span>
+<span id="cb23-44"><a href="#cb23-44" aria-hidden="true" tabindex="-1"></a>                <span class="cf">continue</span></span>
+<span id="cb23-45"><a href="#cb23-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-46"><a href="#cb23-46" aria-hidden="true" tabindex="-1"></a>            s.update({key: to_json(value)})</span>
+<span id="cb23-47"><a href="#cb23-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-48"><a href="#cb23-48" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> s</span>
+<span id="cb23-49"><a href="#cb23-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-50"><a href="#cb23-50" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__eq__</span>(<span class="va">self</span>, other):</span>
+<span id="cb23-51"><a href="#cb23-51" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="va">self</span>.__class__.<span class="va">__name__</span> <span class="op">!=</span> other.__class__.<span class="va">__name__</span>:</span>
+<span id="cb23-52"><a href="#cb23-52" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> <span class="va">False</span></span>
+<span id="cb23-53"><a href="#cb23-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-54"><a href="#cb23-54" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="va">self</span>._identity_columns:</span>
+<span id="cb23-55"><a href="#cb23-55" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> <span class="bu">all</span>(</span>
+<span id="cb23-56"><a href="#cb23-56" aria-hidden="true" tabindex="-1"></a>                <span class="bu">getattr</span>(<span class="va">self</span>, col) <span class="op">==</span> <span class="bu">getattr</span>(other.col)</span>
+<span id="cb23-57"><a href="#cb23-57" aria-hidden="true" tabindex="-1"></a>                <span class="cf">for</span> col <span class="kw">in</span> <span class="va">self</span>._identity_columns</span>
+<span id="cb23-58"><a href="#cb23-58" aria-hidden="true" tabindex="-1"></a>            )</span>
+<span id="cb23-59"><a href="#cb23-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-60"><a href="#cb23-60" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>._id <span class="op">==</span> other._id</span>
+<span id="cb23-61"><a href="#cb23-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-62"><a href="#cb23-62" aria-hidden="true" tabindex="-1"></a>    <span class="at">@classmethod</span></span>
+<span id="cb23-63"><a href="#cb23-63" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> _from_json(</span>
+<span id="cb23-64"><a href="#cb23-64" aria-hidden="true" tabindex="-1"></a>        cls,</span>
+<span id="cb23-65"><a href="#cb23-65" aria-hidden="true" tabindex="-1"></a>        auth: dmda.DomoAuth,</span>
+<span id="cb23-66"><a href="#cb23-66" aria-hidden="true" tabindex="-1"></a>        content,</span>
+<span id="cb23-67"><a href="#cb23-67" aria-hidden="true" tabindex="-1"></a>        new_cls,</span>
+<span id="cb23-68"><a href="#cb23-68" aria-hidden="true" tabindex="-1"></a>        identity_columns,</span>
+<span id="cb23-69"><a href="#cb23-69" aria-hidden="true" tabindex="-1"></a>        collection_id<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb23-70"><a href="#cb23-70" aria-hidden="true" tabindex="-1"></a>        document_id<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb23-71"><a href="#cb23-71" aria-hidden="true" tabindex="-1"></a>        metadata<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb23-72"><a href="#cb23-72" aria-hidden="true" tabindex="-1"></a>        created_on_dt<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb23-73"><a href="#cb23-73" aria-hidden="true" tabindex="-1"></a>        updated_on_dt<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb23-74"><a href="#cb23-74" aria-hidden="true" tabindex="-1"></a>    ):</span>
+<span id="cb23-75"><a href="#cb23-75" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-76"><a href="#cb23-76" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> metadata:</span>
+<span id="cb23-77"><a href="#cb23-77" aria-hidden="true" tabindex="-1"></a>            collection_id <span class="op">=</span> metadata.pop(<span class="st">"collectionId"</span>)</span>
+<span id="cb23-78"><a href="#cb23-78" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-79"><a href="#cb23-79" aria-hidden="true" tabindex="-1"></a>            created_on_dt <span class="op">=</span> dmut.convert_string_to_datetime(metadata.pop(<span class="st">"createdOn"</span>))</span>
+<span id="cb23-80"><a href="#cb23-80" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-81"><a href="#cb23-81" aria-hidden="true" tabindex="-1"></a>            updated_on_dt <span class="op">=</span> dmut.convert_string_to_datetime(metadata.pop(<span class="st">"updatedOn"</span>))</span>
+<span id="cb23-82"><a href="#cb23-82" aria-hidden="true" tabindex="-1"></a>            document_id <span class="op">=</span> metadata[<span class="st">"id"</span>]</span>
+<span id="cb23-83"><a href="#cb23-83" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-84"><a href="#cb23-84" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> new_cls(</span>
+<span id="cb23-85"><a href="#cb23-85" aria-hidden="true" tabindex="-1"></a>            auth<span class="op">=</span>auth,</span>
+<span id="cb23-86"><a href="#cb23-86" aria-hidden="true" tabindex="-1"></a>            _id<span class="op">=</span>document_id,</span>
+<span id="cb23-87"><a href="#cb23-87" aria-hidden="true" tabindex="-1"></a>            _identity_columns<span class="op">=</span>identity_columns,</span>
+<span id="cb23-88"><a href="#cb23-88" aria-hidden="true" tabindex="-1"></a>            _collection_id<span class="op">=</span>collection_id,</span>
+<span id="cb23-89"><a href="#cb23-89" aria-hidden="true" tabindex="-1"></a>            _created_on_dt<span class="op">=</span>created_on_dt,</span>
+<span id="cb23-90"><a href="#cb23-90" aria-hidden="true" tabindex="-1"></a>            _updated_on_dt<span class="op">=</span>updated_on_dt,</span>
+<span id="cb23-91"><a href="#cb23-91" aria-hidden="true" tabindex="-1"></a>            content<span class="op">=</span>content,</span>
+<span id="cb23-92"><a href="#cb23-92" aria-hidden="true" tabindex="-1"></a>            <span class="op">**</span>(content <span class="cf">if</span> cls.<span class="va">__name__</span> <span class="op">!=</span> <span class="st">"AppDbDocument"</span> <span class="cf">else</span> {})</span>
+<span id="cb23-93"><a href="#cb23-93" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb23-94"><a href="#cb23-94" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-95"><a href="#cb23-95" aria-hidden="true" tabindex="-1"></a>    <span class="at">@classmethod</span></span>
+<span id="cb23-96"><a href="#cb23-96" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> _from_api(</span>
+<span id="cb23-97"><a href="#cb23-97" aria-hidden="true" tabindex="-1"></a>        cls,</span>
+<span id="cb23-98"><a href="#cb23-98" aria-hidden="true" tabindex="-1"></a>        auth: dmda.DomoAuth,</span>
+<span id="cb23-99"><a href="#cb23-99" aria-hidden="true" tabindex="-1"></a>        obj,</span>
+<span id="cb23-100"><a href="#cb23-100" aria-hidden="true" tabindex="-1"></a>        identity_columns: List[<span class="bu">str</span>] <span class="op">=</span> <span class="va">None</span>,</span>
+<span id="cb23-101"><a href="#cb23-101" aria-hidden="true" tabindex="-1"></a>    ):</span>
+<span id="cb23-102"><a href="#cb23-102" aria-hidden="true" tabindex="-1"></a>        content <span class="op">=</span> obj.pop(<span class="st">"content"</span>)</span>
+<span id="cb23-103"><a href="#cb23-103" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-104"><a href="#cb23-104" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> cls._from_json(</span>
+<span id="cb23-105"><a href="#cb23-105" aria-hidden="true" tabindex="-1"></a>            auth<span class="op">=</span>auth,</span>
+<span id="cb23-106"><a href="#cb23-106" aria-hidden="true" tabindex="-1"></a>            content<span class="op">=</span>content,</span>
+<span id="cb23-107"><a href="#cb23-107" aria-hidden="true" tabindex="-1"></a>            new_cls<span class="op">=</span>cls,</span>
+<span id="cb23-108"><a href="#cb23-108" aria-hidden="true" tabindex="-1"></a>            identity_columns<span class="op">=</span>identity_columns,</span>
+<span id="cb23-109"><a href="#cb23-109" aria-hidden="true" tabindex="-1"></a>            metadata<span class="op">=</span>obj,</span>
+<span id="cb23-110"><a href="#cb23-110" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb23-111"><a href="#cb23-111" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-112"><a href="#cb23-112" aria-hidden="true" tabindex="-1"></a>    <span class="at">@classmethod</span></span>
+<span id="cb23-113"><a href="#cb23-113" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> from_json(</span>
+<span id="cb23-114"><a href="#cb23-114" aria-hidden="true" tabindex="-1"></a>        cls,</span>
+<span id="cb23-115"><a href="#cb23-115" aria-hidden="true" tabindex="-1"></a>        auth: dmda.DomoAuth,</span>
+<span id="cb23-116"><a href="#cb23-116" aria-hidden="true" tabindex="-1"></a>        collection_id: <span class="bu">str</span>,</span>
+<span id="cb23-117"><a href="#cb23-117" aria-hidden="true" tabindex="-1"></a>        content: <span class="bu">dict</span>,</span>
+<span id="cb23-118"><a href="#cb23-118" aria-hidden="true" tabindex="-1"></a>        identity_columns: List[<span class="bu">str</span>] <span class="op">=</span> <span class="va">None</span>,</span>
+<span id="cb23-119"><a href="#cb23-119" aria-hidden="true" tabindex="-1"></a>    ):</span>
+<span id="cb23-120"><a href="#cb23-120" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> cls._from_json(</span>
+<span id="cb23-121"><a href="#cb23-121" aria-hidden="true" tabindex="-1"></a>            auth<span class="op">=</span>auth,</span>
+<span id="cb23-122"><a href="#cb23-122" aria-hidden="true" tabindex="-1"></a>            content<span class="op">=</span>content,</span>
+<span id="cb23-123"><a href="#cb23-123" aria-hidden="true" tabindex="-1"></a>            new_cls<span class="op">=</span>cls,</span>
+<span id="cb23-124"><a href="#cb23-124" aria-hidden="true" tabindex="-1"></a>            identity_columns<span class="op">=</span>identity_columns,</span>
+<span id="cb23-125"><a href="#cb23-125" aria-hidden="true" tabindex="-1"></a>            collection_id<span class="op">=</span>collection_id,</span>
+<span id="cb23-126"><a href="#cb23-126" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb23-127"><a href="#cb23-127" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-128"><a href="#cb23-128" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> update_config(<span class="va">self</span>):</span>
+<span id="cb23-129"><a href="#cb23-129" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.content <span class="op">=</span> {</span>
+<span id="cb23-130"><a href="#cb23-130" aria-hidden="true" tabindex="-1"></a>            key: value</span>
+<span id="cb23-131"><a href="#cb23-131" aria-hidden="true" tabindex="-1"></a>            <span class="cf">for</span> key, value <span class="kw">in</span> <span class="va">self</span>.__dict__.items()</span>
+<span id="cb23-132"><a href="#cb23-132" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> key <span class="kw">not</span> <span class="kw">in</span> [<span class="st">"auth"</span>, <span class="st">"content"</span>] <span class="kw">and</span> <span class="kw">not</span> key.startswith(<span class="st">"_"</span>)</span>
+<span id="cb23-133"><a href="#cb23-133" aria-hidden="true" tabindex="-1"></a>        }</span>
+<span id="cb23-134"><a href="#cb23-134" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.content</span>
+<span id="cb23-135"><a href="#cb23-135" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-136"><a href="#cb23-136" aria-hidden="true" tabindex="-1"></a>    <span class="at">@classmethod</span></span>
+<span id="cb23-137"><a href="#cb23-137" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> get_by_id(</span>
+<span id="cb23-138"><a href="#cb23-138" aria-hidden="true" tabindex="-1"></a>        cls,</span>
+<span id="cb23-139"><a href="#cb23-139" aria-hidden="true" tabindex="-1"></a>        collection_id: <span class="bu">str</span>,</span>
+<span id="cb23-140"><a href="#cb23-140" aria-hidden="true" tabindex="-1"></a>        document_id: <span class="bu">str</span>,</span>
+<span id="cb23-141"><a href="#cb23-141" aria-hidden="true" tabindex="-1"></a>        auth: dmda.DomoAuth,</span>
+<span id="cb23-142"><a href="#cb23-142" aria-hidden="true" tabindex="-1"></a>        identity_columns<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb23-143"><a href="#cb23-143" aria-hidden="true" tabindex="-1"></a>        debug_api: <span class="bu">bool</span> <span class="op">=</span> <span class="va">False</span>,</span>
+<span id="cb23-144"><a href="#cb23-144" aria-hidden="true" tabindex="-1"></a>        return_raw: <span class="bu">bool</span> <span class="op">=</span> <span class="va">False</span>,</span>
+<span id="cb23-145"><a href="#cb23-145" aria-hidden="true" tabindex="-1"></a>    ):</span>
+<span id="cb23-146"><a href="#cb23-146" aria-hidden="true" tabindex="-1"></a>        res <span class="op">=</span> get_collection_document_by_id(</span>
+<span id="cb23-147"><a href="#cb23-147" aria-hidden="true" tabindex="-1"></a>            auth<span class="op">=</span>auth,</span>
+<span id="cb23-148"><a href="#cb23-148" aria-hidden="true" tabindex="-1"></a>            collection_id<span class="op">=</span>collection_id,</span>
+<span id="cb23-149"><a href="#cb23-149" aria-hidden="true" tabindex="-1"></a>            document_id<span class="op">=</span>document_id,</span>
+<span id="cb23-150"><a href="#cb23-150" aria-hidden="true" tabindex="-1"></a>            debug_api<span class="op">=</span>debug_api,</span>
+<span id="cb23-151"><a href="#cb23-151" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb23-152"><a href="#cb23-152" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-153"><a href="#cb23-153" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> return_raw:</span>
+<span id="cb23-154"><a href="#cb23-154" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> res</span>
+<span id="cb23-155"><a href="#cb23-155" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-156"><a href="#cb23-156" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> cls._from_api(</span>
+<span id="cb23-157"><a href="#cb23-157" aria-hidden="true" tabindex="-1"></a>            auth<span class="op">=</span>auth,</span>
+<span id="cb23-158"><a href="#cb23-158" aria-hidden="true" tabindex="-1"></a>            obj<span class="op">=</span>res.response,</span>
+<span id="cb23-159"><a href="#cb23-159" aria-hidden="true" tabindex="-1"></a>            identity_columns<span class="op">=</span>identity_columns <span class="kw">or</span> [],</span>
+<span id="cb23-160"><a href="#cb23-160" aria-hidden="true" tabindex="-1"></a>        )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<hr>
+<p><a href="https://github.com/fastai/mbison/blob/master/mbison/feature/appdb.py#L122" target="_blank" style="float:right; font-size:smaller">source</a></p>
+</section>
+<section id="to_json" class="level3">
+<h3 class="anchored" data-anchor-id="to_json">to_json</h3>
+<blockquote class="blockquote">
+<pre><code> to_json (value)</code></pre>
+</blockquote>
+<p><em>converts complex dictionaries with nested classes to dictionary. assumes nested classes have a <a href="https://fastai.github.io/mbison/feature/appdb.html#to_json"><code>to_json</code></a> method</em></p>
+<div id="cell-23" class="cell" data-execution_count="25">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>AppDbDocument.get_by_id(</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>    auth <span class="op">=</span> auth,</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>    debug_api<span class="op">=</span> <span class="va">False</span>,</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>    collection_id <span class="op">=</span> document[<span class="st">'collectionId'</span>],</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>    document_id <span class="op">=</span> document[<span class="st">'id'</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="25">
+<pre><code>AppDbDocument(_collection_id='0f68f250-df2c-4a15-98ef-9cdd851602eb', _identity_columns=[], _id='302663f9-c0bc-4413-894a-3075711b3600', _created_on_dt=datetime.datetime(2024, 5, 30, 7, 45, 25, 355000, tzinfo=tzutc()), _updated_on_dt=datetime.datetime(2024, 5, 30, 10, 14, 7, 365000, tzinfo=tzutc()), content={'htmlEasy': {'js': 'fakeEmail = "ar@test.com";\r\n// fakeEmail = domo.env.userEmail;\r\n\r\n//Available globals\r\nvar domo = window.domo; // For more on domo.js: https://developer.domo.com/docs/dev-studio-guides/domo-js#domo.get\r\nvar datasets = window.datasets;\r\n\r\nlet whoami = domo.env.userId\r\nconsole.log(whoami)\r\nwhoami = 612085674 //noah\r\n\r\nSQL_activityLog = "select `SOURCE_ID` as user_id, `Object_ID` as page_id, count(*) as viewCount FROM dataset1 where `Action` = \'VIEWED\' and `Object_Type` = \'PAGE\' and `SOURCE_ID` = \'" + whoami +"\'  GROUP BY `Object_ID`, `Source_ID` ORDER BY count(*)"\r\n\r\nfunction mergeRowsColumns(rows, columns) {\r\n  return rows.map((row) =&gt; {\r\n    let obj = {};\r\n    row.forEach((item, index) =&gt; {\r\n      obj[columns[index]] = item;\r\n    });\r\n    return obj;\r\n  });\r\n}\r\n\r\nconst get_data = async (sql_str, dataset_alias) =&gt; {\r\n  api_str = `/sql/v1/${dataset_alias}`;\r\n  console.log(api_str, sql_str);\r\n\r\n  res = await domo.post(api_str, sql_str, { contentType: "text/plain" });\r\n\r\n  return mergeRowsColumns((rows = res.rows), (columns = res.columns));\r\n};\r\n\r\nconst paint_links = (links)=&gt; {\r\n  return links.reduce( (accum, link) =&gt;  {\r\n    accum += `&lt;div &gt;${link.page_id}&lt;div&gt;`\r\n    return accum } \r\n    , "")\r\n}\r\n\r\nconst main = async () =&gt; {\r\n  const whodiv = document.getElementById(\'whoami\')\r\n  whodiv.innerHTML = whoami\r\n  \r\n  const mydiv = document.getElementById(\'myDiv\')\r\n  \r\n  const data = await get_data(sql_str = SQL_activityLog, \'dataset1\')\r\n  console.log(mydiv)\r\n  mydiv.innerHTML = paint_links(data)\r\n}\r\n\r\nmain()', 'html': '&lt;div&gt;\n  &lt;div id = "whoami"/&gt;\n  &lt;div id = "myDiv" /&gt;\n&lt;/div&gt;', 'css': '#myDiv {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  background: rgb(131,58,180);\n\tbackground: linear-gradient(90deg, rgba(121,64,161,1) 0%, rgba(228,88,80,1) 50%, rgba(251,141,52,1) 100%);\n  height: calc(100vh);\n}\n\nh1 {\n  color: white;\n}'}})</code></pre>
+</div>
+</div>
+<hr>
+<p><a href="https://github.com/fastai/mbison/blob/master/mbison/feature/appdb.py#L286" target="_blank" style="float:right; font-size:smaller">source</a></p>
+</section>
+<section id="appdbcollection" class="level3">
+<h3 class="anchored" data-anchor-id="appdbcollection">AppDbCollection</h3>
+<blockquote class="blockquote">
+<pre><code> AppDbCollection (auth:mbison.client.core.DomoAuth, id:str, name:str,
+                  created_on_dt:datetime.datetime,
+                  updated_on_dt:datetime.datetime, schema:dict,
+                  domo_documents:List[__main__.AppDbDocument]=None)</code></pre>
+</blockquote>
+<div id="cell-25" class="cell" data-execution_count="30">
+<details open="" class="code-fold">
+<summary>Exported source</summary>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="at">@dataclass</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> AppDbCollection:</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>    auth: dmda.DomoAuth <span class="op">=</span> field(<span class="bu">repr</span><span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">id</span>: <span class="bu">str</span></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>    name: <span class="bu">str</span></span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>    created_on_dt: dt.datetime</span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>    updated_on_dt: dt.datetime</span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a>    schema: <span class="bu">dict</span></span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a>    domo_documents: List[AppDbDocument] <span class="op">=</span> <span class="va">None</span></span>
+<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-14"><a href="#cb28-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">@classmethod</span></span>
+<span id="cb28-15"><a href="#cb28-15" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> _from_json(cls, auth, obj):</span>
+<span id="cb28-16"><a href="#cb28-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-17"><a href="#cb28-17" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> cls(</span>
+<span id="cb28-18"><a href="#cb28-18" aria-hidden="true" tabindex="-1"></a>            auth<span class="op">=</span>auth,</span>
+<span id="cb28-19"><a href="#cb28-19" aria-hidden="true" tabindex="-1"></a>            <span class="bu">id</span><span class="op">=</span>obj[<span class="st">"id"</span>],</span>
+<span id="cb28-20"><a href="#cb28-20" aria-hidden="true" tabindex="-1"></a>            name<span class="op">=</span>obj[<span class="st">"name"</span>],</span>
+<span id="cb28-21"><a href="#cb28-21" aria-hidden="true" tabindex="-1"></a>            created_on_dt<span class="op">=</span>dmut.convert_string_to_datetime(obj[<span class="st">"createdOn"</span>]),</span>
+<span id="cb28-22"><a href="#cb28-22" aria-hidden="true" tabindex="-1"></a>            updated_on_dt<span class="op">=</span>dmut.convert_string_to_datetime(obj[<span class="st">"updatedOn"</span>]),</span>
+<span id="cb28-23"><a href="#cb28-23" aria-hidden="true" tabindex="-1"></a>            schema<span class="op">=</span>obj[<span class="st">"schema"</span>],</span>
+<span id="cb28-24"><a href="#cb28-24" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb28-25"><a href="#cb28-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-26"><a href="#cb28-26" aria-hidden="true" tabindex="-1"></a>    <span class="at">@classmethod</span></span>
+<span id="cb28-27"><a href="#cb28-27" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> get_by_id(</span>
+<span id="cb28-28"><a href="#cb28-28" aria-hidden="true" tabindex="-1"></a>        cls,</span>
+<span id="cb28-29"><a href="#cb28-29" aria-hidden="true" tabindex="-1"></a>        auth: dmda.DomoAuth,</span>
+<span id="cb28-30"><a href="#cb28-30" aria-hidden="true" tabindex="-1"></a>        collection_id,</span>
+<span id="cb28-31"><a href="#cb28-31" aria-hidden="true" tabindex="-1"></a>        debug_api: <span class="bu">bool</span> <span class="op">=</span> <span class="va">False</span>,</span>
+<span id="cb28-32"><a href="#cb28-32" aria-hidden="true" tabindex="-1"></a>        return_raw: <span class="bu">bool</span> <span class="op">=</span> <span class="va">False</span>,</span>
+<span id="cb28-33"><a href="#cb28-33" aria-hidden="true" tabindex="-1"></a>    ):</span>
+<span id="cb28-34"><a href="#cb28-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-35"><a href="#cb28-35" aria-hidden="true" tabindex="-1"></a>        res <span class="op">=</span> get_collection_by_id(</span>
+<span id="cb28-36"><a href="#cb28-36" aria-hidden="true" tabindex="-1"></a>            auth<span class="op">=</span>auth,</span>
+<span id="cb28-37"><a href="#cb28-37" aria-hidden="true" tabindex="-1"></a>            collection_id<span class="op">=</span>collection_id,</span>
+<span id="cb28-38"><a href="#cb28-38" aria-hidden="true" tabindex="-1"></a>            debug_api<span class="op">=</span>debug_api,</span>
+<span id="cb28-39"><a href="#cb28-39" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb28-40"><a href="#cb28-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-41"><a href="#cb28-41" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> return_raw:</span>
+<span id="cb28-42"><a href="#cb28-42" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> res</span>
+<span id="cb28-43"><a href="#cb28-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-44"><a href="#cb28-44" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> cls._from_json(auth<span class="op">=</span>auth, obj<span class="op">=</span>res.response)</span>
+<span id="cb28-45"><a href="#cb28-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-46"><a href="#cb28-46" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> query_documents(</span>
+<span id="cb28-47"><a href="#cb28-47" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>,</span>
+<span id="cb28-48"><a href="#cb28-48" aria-hidden="true" tabindex="-1"></a>        debug_api: <span class="bu">bool</span> <span class="op">=</span> <span class="va">False</span>,</span>
+<span id="cb28-49"><a href="#cb28-49" aria-hidden="true" tabindex="-1"></a>        query: <span class="bu">dict</span><span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb28-50"><a href="#cb28-50" aria-hidden="true" tabindex="-1"></a>        return_raw: <span class="bu">bool</span> <span class="op">=</span> <span class="va">False</span>,</span>
+<span id="cb28-51"><a href="#cb28-51" aria-hidden="true" tabindex="-1"></a>    ):</span>
+<span id="cb28-52"><a href="#cb28-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-53"><a href="#cb28-53" aria-hidden="true" tabindex="-1"></a>        res <span class="op">=</span> query_collection_documents(</span>
+<span id="cb28-54"><a href="#cb28-54" aria-hidden="true" tabindex="-1"></a>            auth<span class="op">=</span><span class="va">self</span>.auth,</span>
+<span id="cb28-55"><a href="#cb28-55" aria-hidden="true" tabindex="-1"></a>            collection_id<span class="op">=</span><span class="va">self</span>.<span class="bu">id</span>,</span>
+<span id="cb28-56"><a href="#cb28-56" aria-hidden="true" tabindex="-1"></a>            debug_api<span class="op">=</span>debug_api,</span>
+<span id="cb28-57"><a href="#cb28-57" aria-hidden="true" tabindex="-1"></a>            query<span class="op">=</span>query,</span>
+<span id="cb28-58"><a href="#cb28-58" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb28-59"><a href="#cb28-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-60"><a href="#cb28-60" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> return_raw:</span>
+<span id="cb28-61"><a href="#cb28-61" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> res</span>
+<span id="cb28-62"><a href="#cb28-62" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-63"><a href="#cb28-63" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.domo_documents <span class="op">=</span> [</span>
+<span id="cb28-64"><a href="#cb28-64" aria-hidden="true" tabindex="-1"></a>                AppDbDocument.get_by_id(</span>
+<span id="cb28-65"><a href="#cb28-65" aria-hidden="true" tabindex="-1"></a>                    collection_id<span class="op">=</span><span class="va">self</span>.<span class="bu">id</span>,</span>
+<span id="cb28-66"><a href="#cb28-66" aria-hidden="true" tabindex="-1"></a>                    document_id<span class="op">=</span>doc[<span class="st">"id"</span>], auth<span class="op">=</span><span class="va">self</span>.auth</span>
+<span id="cb28-67"><a href="#cb28-67" aria-hidden="true" tabindex="-1"></a>                )</span>
+<span id="cb28-68"><a href="#cb28-68" aria-hidden="true" tabindex="-1"></a>                <span class="cf">for</span> doc <span class="kw">in</span> res.response</span>
+<span id="cb28-69"><a href="#cb28-69" aria-hidden="true" tabindex="-1"></a>            ]</span>
+<span id="cb28-70"><a href="#cb28-70" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb28-71"><a href="#cb28-71" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.domo_documents</span>
+<span id="cb28-72"><a href="#cb28-72" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-73"><a href="#cb28-73" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__eq__</span>(<span class="va">self</span>, other):</span>
+<span id="cb28-74"><a href="#cb28-74" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="kw">not</span> <span class="bu">isinstance</span>(other, AppDbCollection):</span>
+<span id="cb28-75"><a href="#cb28-75" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> <span class="va">False</span></span>
+<span id="cb28-76"><a href="#cb28-76" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-77"><a href="#cb28-77" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.<span class="bu">id</span> <span class="op">==</span> other.<span class="bu">id</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div id="cell-26" class="cell" data-execution_count="27">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>domo_collection <span class="op">=</span> AppDbCollection.get_by_id(auth <span class="op">=</span> auth, </span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>                          collection_id<span class="op">=</span> document[<span class="st">'collectionId'</span>],</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>                          debug_api<span class="op">=</span> <span class="va">False</span></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>                          )</span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>domo_collection.query_documents()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="27">
+<pre><code>[AppDbDocument(_collection_id='0f68f250-df2c-4a15-98ef-9cdd851602eb', _identity_columns=[], _id='302663f9-c0bc-4413-894a-3075711b3600', _created_on_dt=datetime.datetime(2024, 5, 30, 7, 45, 25, 355000, tzinfo=tzutc()), _updated_on_dt=datetime.datetime(2024, 5, 30, 10, 14, 7, 365000, tzinfo=tzutc()), content={'htmlEasy': {'js': 'fakeEmail = "ar@test.com";\r\n// fakeEmail = domo.env.userEmail;\r\n\r\n//Available globals\r\nvar domo = window.domo; // For more on domo.js: https://developer.domo.com/docs/dev-studio-guides/domo-js#domo.get\r\nvar datasets = window.datasets;\r\n\r\nlet whoami = domo.env.userId\r\nconsole.log(whoami)\r\nwhoami = 612085674 //noah\r\n\r\nSQL_activityLog = "select `SOURCE_ID` as user_id, `Object_ID` as page_id, count(*) as viewCount FROM dataset1 where `Action` = \'VIEWED\' and `Object_Type` = \'PAGE\' and `SOURCE_ID` = \'" + whoami +"\'  GROUP BY `Object_ID`, `Source_ID` ORDER BY count(*)"\r\n\r\nfunction mergeRowsColumns(rows, columns) {\r\n  return rows.map((row) =&gt; {\r\n    let obj = {};\r\n    row.forEach((item, index) =&gt; {\r\n      obj[columns[index]] = item;\r\n    });\r\n    return obj;\r\n  });\r\n}\r\n\r\nconst get_data = async (sql_str, dataset_alias) =&gt; {\r\n  api_str = `/sql/v1/${dataset_alias}`;\r\n  console.log(api_str, sql_str);\r\n\r\n  res = await domo.post(api_str, sql_str, { contentType: "text/plain" });\r\n\r\n  return mergeRowsColumns((rows = res.rows), (columns = res.columns));\r\n};\r\n\r\nconst paint_links = (links)=&gt; {\r\n  return links.reduce( (accum, link) =&gt;  {\r\n    accum += `&lt;div &gt;${link.page_id}&lt;div&gt;`\r\n    return accum } \r\n    , "")\r\n}\r\n\r\nconst main = async () =&gt; {\r\n  const whodiv = document.getElementById(\'whoami\')\r\n  whodiv.innerHTML = whoami\r\n  \r\n  const mydiv = document.getElementById(\'myDiv\')\r\n  \r\n  const data = await get_data(sql_str = SQL_activityLog, \'dataset1\')\r\n  console.log(mydiv)\r\n  mydiv.innerHTML = paint_links(data)\r\n}\r\n\r\nmain()', 'html': '&lt;div&gt;\n  &lt;div id = "whoami"/&gt;\n  &lt;div id = "myDiv" /&gt;\n&lt;/div&gt;', 'css': '#myDiv {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  background: rgb(131,58,180);\n\tbackground: linear-gradient(90deg, rgba(121,64,161,1) 0%, rgba(228,88,80,1) 50%, rgba(251,141,52,1) 100%);\n  height: calc(100vh);\n}\n\nh1 {\n  color: white;\n}'}})]</code></pre>
+</div>
+</div>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/fastai\.github\.io\/mbison");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/fastai/mbison/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>
