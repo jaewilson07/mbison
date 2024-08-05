@@ -278,17 +278,13 @@ def domo_api_request(
             }
         )
 
-    if request_type.lower() == "post":
-        response = requests.post(
-            url, json=body, headers=headers, params=params, timeout=timeout
-        )
-
-    elif request_type.lower() == "get":
+    if request_type.lower() == "get":
         response = requests.get(url, headers=headers, params=params, timeout=timeout)
 
     else:
-        raise Exception(
-            f'domo_api_request method "{request_type.lower()}" not implemented yet.'
+        fn = getattr(requests, request_type.lower() )
+        response = fn(
+            url, json=body, headers=headers, params=params, timeout=timeout
         )
 
     if return_raw:

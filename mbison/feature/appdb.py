@@ -2,10 +2,13 @@
 
 # %% auto 0
 __all__ = ['AppDb_API_Exception', 'get_collections', 'get_collection_by_id', 'query_collection_documents',
-           'get_collection_document_by_id', 'to_json', 'AppDbDocument', 'AppDbCollection']
+           'get_collection_document_by_id', 'Collection_Permission_Enum', 'modify_collection_permissions', 'to_json',
+           'AppDbDocument', 'AppDbCollection']
 
 # %% ../../nbs/feature/appdb.ipynb 3
 from dataclasses import dataclass, field
+from enum import Enum
+
 
 from typing import List
 import datetime as dt
@@ -87,7 +90,7 @@ def query_collection_documents(
     )
 
     if not res.is_success:
-        raise AppDb_API_Exception(res)
+        raise AppDb_API_Exception(res, message = f"unable to query documents in collection - {collection_id}")
     
     return res
 
@@ -118,7 +121,38 @@ def get_collection_document_by_id(
     return res
 
 
-# %% ../../nbs/feature/appdb.ipynb 18
+# %% ../../nbs/feature/appdb.ipynb 17
+class Collection_Permission_Enum(Enum):
+    READ_CONTENT = 'READ_CONTENT'
+    ADMIN = 'ADMIN'
+    UPDATE_CONTENT = 'UPDATE_CONTENT'
+
+def modify_collection_permissions(
+    collection_id : str ,
+    user_id: str,
+    auth :dmda.DomoAuth,
+    permission = Collection_Permission_Enum.READ_CONTENT,
+    debug_api: bool = False
+):
+
+    endpoint = f'/api/datastores/v1/collections/{collection_id}/permission/USER/{user_id}'
+    params = {'overwrite' : True, 'permissions' : permission.value if isinstance(permission, Collection_Permission_Enum) else permission}
+
+              
+    res =  dmda.domo_api_request(
+        auth=auth,
+        request_type="PUT",
+        params = params,
+        endpoint= endpoint,
+        debug_api=debug_api,
+    )
+
+    if not res.is_success:
+        raise AppDb_API_Exception(res, message = "unable to set permissions for {user_id} to {permission.value} in collection {collection_id}")
+    
+    return res
+
+# %% ../../nbs/feature/appdb.ipynb 20
 def to_json(value):
     """
     converts complex dictionaries with nested classes to dictionary.
@@ -281,7 +315,7 @@ class AppDbDocument:
         )
 
 
-# %% ../../nbs/feature/appdb.ipynb 20
+# %% ../../nbs/feature/appdb.ipynb 22
 @dataclass
 class AppDbCollection:
     auth: dmda.DomoAuth = field(repr=False)
