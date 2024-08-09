@@ -17,6 +17,10 @@ from numbers import Number
 import mbison.client.core as dmda
 import mbison.client.utils as dmut
 
+import time 
+
+from nbdev.showdoc import patch_to
+
 # %% ../../nbs/feature/appdb.ipynb 8
 class AppDb_API_Exception(dmda.API_Exception):
     def __init__(self, res, message=None):
@@ -123,33 +127,53 @@ def get_collection_document_by_id(
 
 # %% ../../nbs/feature/appdb.ipynb 17
 class Collection_Permission_Enum(Enum):
-    READ_CONTENT = 'READ_CONTENT'
-    ADMIN = 'ADMIN'
-    UPDATE_CONTENT = 'UPDATE_CONTENT'
+    READ_CONTENT = "READ_CONTENT"
+    ADMIN = "ADMIN"
+    UPDATE_CONTENT = "UPDATE_CONTENT"
+
 
 def modify_collection_permissions(
-    collection_id : str ,
-    user_id: str,
-    auth :dmda.DomoAuth,
-    permission = Collection_Permission_Enum.READ_CONTENT,
-    debug_api: bool = False
+    collection_id: str,
+    auth: dmda.DomoAuth,
+    user_id: str = None,
+    group_id : str = None,
+    permission=Collection_Permission_Enum.READ_CONTENT,
+    debug_api: bool = False,
+    return_raw: bool = False
 ):
 
-    endpoint = f'/api/datastores/v1/collections/{collection_id}/permission/USER/{user_id}'
-    params = {'overwrite' : True, 'permissions' : permission.value if isinstance(permission, Collection_Permission_Enum) else permission}
+    endpoint = (
+        f"/api/datastores/v1/collections/{collection_id}/permission/{'USER' if user_id else {'GROUP'}}/{user_id or group_id}"
+    )
+    params = {
+        "overwrite": False,
+        "permissions": (
+            permission.value
+            if isinstance(permission, Collection_Permission_Enum)
+            else permission
+        ),
+    }
 
-              
-    res =  dmda.domo_api_request(
+    res = dmda.domo_api_request(
         auth=auth,
         request_type="PUT",
-        params = params,
-        endpoint= endpoint,
+        params=params,
+        endpoint=endpoint,
         debug_api=debug_api,
     )
 
+    if return_raw:
+        return res
+
     if not res.is_success:
-        raise AppDb_API_Exception(res, message = "unable to set permissions for {user_id} to {permission.value} in collection {collection_id}")
+        raise AppDb_API_Exception(
+            res,
+            message="unable to set permissions for {user_id} to {permission.value} in collection {collection_id}",
+        )
     
+    res.response = f"set permissions for {user_id} to {permission.value} in collection {collection_id}"
+    
+
     return res
 
 # %% ../../nbs/feature/appdb.ipynb 20
@@ -361,35 +385,72 @@ class AppDbCollection:
 
         return cls._from_json(auth=auth, obj=res.response)
 
-    def query_documents(
-        self,
-        debug_api: bool = False,
-        query: dict=None,
-        return_raw: bool = False,
-    ):
-
-        res = query_collection_documents(
-            auth=self.auth,
-            collection_id=self.id,
-            debug_api=debug_api,
-            query=query,
-        )
-
-        if return_raw:
-            return res
-
-        self.domo_documents = [
-                AppDbDocument.get_by_id(
-                    collection_id=self.id,
-                    document_id=doc["id"], auth=self.auth
-                )
-                for doc in res.response
-            ]
-        
-        return self.domo_documents
-
+    
     def __eq__(self, other):
         if not isinstance(other, AppDbCollection):
             return False
 
         return self.id == other.id
+
+# %% ../../nbs/feature/appdb.ipynb 23
+@patch_to(AppDbCollection)
+def share_collection(
+    self,
+    domo_user=None,
+    domo_group=None,
+    permission: Collection_Permission_Enum = Collection_Permission_Enum.READ_CONTENT,
+    debug_api : bool = False
+):
+    return modify_collection_permissions(
+        collection_id=self.id,
+        user_id=(domo_user and domo_user.id) or self.auth.who_am_i()["id"],
+        group_id=domo_group and domo_group.id,
+        permission=permission,
+        auth=self.auth,
+        debug_api= debug_api
+    )
+
+
+@patch_to(AppDbCollection)
+def query_documents(
+    self,
+    debug_api: bool = False,
+    query: dict = None,
+    return_raw: bool = False,
+    try_auto_share=False,
+):
+
+    documents = []
+    loop_retry = 0
+    while loop_retry <= 1 and not documents:
+        try:
+            res = query_collection_documents(
+                auth=self.auth,
+                collection_id=self.id,
+                debug_api=debug_api,
+                query=query,
+            )
+
+            documents = res.response
+
+        except AppDb_API_Exception as e:
+            if try_auto_share:
+                self.share_collection(debug_api = debug_api)
+                time.sleep(2)
+
+            loop_retry += 1
+
+            if loop_retry > 1:
+                raise e
+
+        if return_raw:
+            return res
+
+        self.domo_documents = [
+            AppDbDocument.get_by_id(
+                collection_id=self.id, document_id=doc["id"], auth=self.auth
+            )
+            for doc in documents
+        ]
+
+        return self.domo_documents

@@ -14,7 +14,7 @@ import time
 from copy import deepcopy
 from pprint import pprint
 
-import mbison.utils as dmut
+import mbison.client.utils as dmut
 
 from nbdev.showdoc import patch_to
 
@@ -164,14 +164,13 @@ class Class_Exception(Exception):
     def __init__(self, cls, auth=None, message: str = None):
         cls_instance = cls
 
-        if hasattr(cls, "__cls__"):
+        if hasattr(cls, "__class__"):
             cls_instance = cls
-            cls = cls.__cls__
+            cls = cls.__class__
 
-        domo_instance = {
-            (cls_instance and cls_instance.auth.domo_instance)
-            or (auth and auth.domo_instance)
-        }
+        domo_instance = (
+            cls_instance and cls_instance.auth and cls_instance.auth.domo_instance
+        ) or (auth and auth.domo_instance)
 
         message = f"{message or 'error'} || {cls.__name__}"
 
